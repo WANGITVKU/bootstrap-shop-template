@@ -5,6 +5,36 @@
  * Copyright 2011-2020 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
+.result {
+  position: absolute;
+  z-index: 999;
+  top: 100%;
+  left: 0;
+}
+
+#search1 input[type="text"],
+.result a {
+  width: 100%;
+  display: block; /* Ensures each <a> is a block element */
+  text-decoration: none; /* Removes default underline styling */
+}
+
+/* Formatting result items */
+.result a {
+  margin: 0;
+  padding: 7px 10px;
+
+  background-color: #565353(202, 201, 201, 0.9);
+  border: 1px solid #CCCCCC;
+  border-top: none;
+  cursor: pointer;
+  box-sizing: border-box; 
+  margin-bottom: 0;/* Ensures padding and border are included in the width */
+}
+
+.result a:hover {
+  background-color: #bdb5b5;
+}
 :root {
   --blue: #007bff;
   --indigo: #6610f2;
@@ -3401,6 +3431,11 @@ input[type="button"].btn-block {
 .input-group-append .btn:focus {
   z-index: 3;
 }
+.search-box input[type="text"], .result{
+  width: 100%;
+  box-sizing: border-box;
+}
+/* Formatting result items */
 
 .input-group-prepend .btn + .btn,
 .input-group-prepend .btn + .input-group-text,

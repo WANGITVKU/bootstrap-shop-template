@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
+<head>
         <title>Danh sách nhân viên | Quản trị Admin</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -26,19 +26,7 @@
 
 <body onload="time()" class="app sidebar-mini rtl">
    <!-- Navbar-->
-   <header class="app-header">
-    <!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar"
-      aria-label="Hide Sidebar"></a>
-    <!-- Navbar Right Menu-->
-    <ul class="app-nav">
-
-
-      <!-- User Menu-->
-      <li><a class="app-nav__item" href="/index.html"><i class='bx bx-log-out bx-rotate-180'></i> </a>
-
-      </li>
-    </ul>
-  </header>
+  
   <!-- Sidebar menu-->
   <!-- <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
   <aside class="app-sidebar">
@@ -57,7 +45,7 @@
       <li><a class="app-menu__item active" href="table-data-product.html"><i
             class='app-menu__icon bx bx-purchase-tag-alt'></i><span class="app-menu__label">Quản lý sản phẩm</span></a>
       </li>
-      <li><a class="app-menu__item" href="table-data-oder.html"><i class='app-menu__icon bx bx-task'></i><span
+      <li><a class="app-menu__item" href="admin/admin_qldh.php"><i class='app-menu__icon bx bx-task'></i><span
             class="app-menu__label">Quản lý đơn hàng</span></a></li>
      
       <li><a class="app-menu__item" href="#"><i class='app-menu__icon bx bx-cog'></i><span class="app-menu__label">Cài
@@ -68,7 +56,7 @@
     <main class="app-content">
         <div class="app-title">
             <ul class="app-breadcrumb breadcrumb side">
-                <li class="breadcrumb-item active"><a href="#"><b>Danh sách sản phẩm</b></a></li>
+                <li class="breadcrumb-item active"><a href="#"><b>Danh sách đơn hàng b</b></a></li>
             </ul>
             <div id="clock"></div>
         </div>
@@ -144,7 +132,7 @@
                                          
                                           <td><?php echo $row['tong_tien']   ?> </td>
                                           <td><?php echo $row['time']   ?> </td>
-                                          <td><div id="myElement<?php echo $row['id_donhang']?>" onclick="changeContent(<?php echo $row['id_donhang']?>)"><span class="badge bg-info"><?php echo $row['tinh_trang'] ?></span></div></td>
+                                          <td><div id="myElement<?php echo $row['id_donhang']?>" onclick="changeContent(<?php echo $row['id_donhang']?>)"><?php echo html_entity_decode($row['tinh_trang']);?></td>
                                     <td><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
                                             onclick="myFunction(this)"><i class="fas fa-trash-alt"></i> 
                                         </button>
@@ -158,7 +146,7 @@
                                 <tr>
                                     <td width="10"></td>
                                     <td colspan="4"><b>Tổng giá trị đơn hàng là :<b></td>
-                                    <td colspan="3"><b>Tổng giá trị đơn hàng là :<b></td>
+                                    <td colspan="4"><b>Tổng giá trị đơn hàng là :<b></td>
                                     <td></td>
                                 </tr>
                             </tbody>
@@ -172,93 +160,26 @@
 <!--
   MODAL
 -->
-<div class="modal fade" id="ModalUP" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static"
-data-keyboard="false">
-<div class="modal-dialog modal-dialog-centered" role="document">
-  <div class="modal-content">
 
-    <div class="modal-body">
-      <div class="row">
-        <div class="form-group  col-md-12">
-          <span class="thong-tin-thanh-toan">
-            <h5>Chỉnh sửa thông tin sản phẩm cơ bản</h5>
-          </span>
-        </div>
-      </div>
-      <div class="row">
-        <div class="form-group col-md-6">
-            <label class="control-label">Mã sản phẩm </label>
-            <input class="form-control" type="number" value="71309005">
-          </div>
-        <div class="form-group col-md-6">
-            <label class="control-label">Tên sản phẩm</label>
-          <input class="form-control" type="text" required value="Bàn ăn gỗ Theresa">
-        </div>
-        <div class="form-group  col-md-6">
-            <label class="control-label">Số lượng</label>
-          <input class="form-control" type="number" required value="20">
-        </div>
-        <div class="form-group col-md-6 ">
-            <label for="exampleSelect1" class="control-label">Tình trạng sản phẩm</label>
-            <select class="form-control" id="exampleSelect1">
-              <option>Còn hàng</option>
-              <option>Hết hàng</option>
-              <option>Đang nhập hàng</option>
-            </select>
-          </div>
-          <div class="form-group col-md-6">
-            <label class="control-label">Giá bán</label>
-            <input class="form-control" type="text" value="5.600.000">
-          </div>
-          <div class="form-group col-md-6">
-            <label for="exampleSelect1" class="control-label">Danh mục</label>
-            <select class="form-control" id="exampleSelect1">
-              <option>Bàn ăn</option>
-              <option>Bàn thông minh</option>
-              <option>Tủ</option>
-              <option>Ghế gỗ</option>
-              <option>Ghế sắt</option>
-              <option>Giường người lớn</option>
-              <option>Giường trẻ em</option>
-              <option>Bàn trang điểm</option>
-              <option>Giá đỡ</option>
-            </select>
-          </div>
-      </div>
-      <BR>
-      <a href="#" style="    float: right;
-    font-weight: 600;
-    color: #ea0000;">Chỉnh sửa sản phẩm nâng cao</a>
-      <BR>
-      <BR>
-      <button class="btn btn-save" type="button">Lưu lại</button>
-      <a class="btn btn-cancel" data-dismiss="modal" href="#">Hủy bỏ</a>
-      <BR>
-    </div>
-    <div class="modal-footer">
-    </div>
-  </div>
-</div>
-</div>
 <!--
 MODAL
 -->
 
     <!-- Essential javascripts for application to work-->
-    <script src="../js/js/jquery-3.2.1.min.js"></script>
-    <script src="../js/js/popper.min.js"></script>
-    <script src="../js/js/bootstrap.min.js"></script>
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="src/jquery.table2excel.js"></script>
-    <script src="../js/js/main.js"></script>
+    <script src="js/main.js"></script>
     <script src="js_ajax/xulydh.js"></script>
     <!-- The javascript plugin to display page loading on top-->
-    <script src="../js/js/plugins/pace.min.js"></script>
+    <script src="js/plugins/pace.min.js"></script>
     <!-- Page specific javascripts-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
     <!-- Data table plugin-->
-    <script type="text/javascript" src="../js/js/plugins/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="../js/js/plugins/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/plugins/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="js/js/plugins/dataTables.bootstrap.min.js"></script>
     <script type="text/javascript">
         $('#sampleTable').DataTable();
         //Thời Gian

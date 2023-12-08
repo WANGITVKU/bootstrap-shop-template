@@ -105,7 +105,7 @@ session_start();
 
 
     <!-- Checkout Start -->
-    <form action="xacnhandonhang.php" method="post">
+    <form action="include/xacnhandonhang.php" method="post">
     <div class="container-fluid pt-5">
         <div class="row px-xl-5">
         <?php include "diachi/checkout_diachi.php"?>

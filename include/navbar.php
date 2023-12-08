@@ -15,6 +15,7 @@
                             <div class="nav-item dropdown">
                             <a href="home.php" class="nav-link dropdown-toggle" data-toggle="dropdown">Cửa hàng</a>
                                 <div class="dropdown-menu rounded-0 m-0">
+                                   <a href="shop.php" class="dropdown-item">tất cả sản phẩm</a>
                                 <?php
                                     $conn = mysqli_connect("localhost:3307", "root", "", "banhang");
                                     $sql1 = "SELECT * from danhmuc";
