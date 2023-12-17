@@ -42,7 +42,10 @@
                                       
                                  
                                     ?>
-                                  <a href="shop.php?id_brand=<?php echo $row1['id_brand']?>" class="dropdown-item"><?php echo $row1['namebrand']?></a>
+                              <a href="shop.php?id_brand=<?php echo $row1['id_brand']?>" class="dropdown-item">
+                                        <img src="<?php echo $row1['img']?>" alt="Brand Image" style="width: 60px; height: 40px;">
+                                        <?php echo $row1['namebrand']?>
+                                    </a>
                            
                                 <?php  } ?>
                                 </div>
@@ -59,8 +62,12 @@
                             $email = $_SESSION["email"]; 
                             echo'
                             <div class="navbar-nav ml-auto py-0">
-                            <i class="fas fa-user-secret">'.$full_name.
-                             '
+                            <div class="fas fa-user-secret">
+                            <a href="user/profile.php" class="">'
+                            
+                            .
+                            $full_name.
+                             '</a>
                              &nbsp;&nbsp;
                              <a href="dangnhap/logout.php" class="">Logout</a></i>
                             

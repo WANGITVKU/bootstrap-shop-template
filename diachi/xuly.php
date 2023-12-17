@@ -5,7 +5,7 @@ if (isset($_POST['add_sale'])) {
     $district_id = $_POST['district'];
     $wards_id = $_POST['wards'];
     echo "<pre>";
-        $conn = mysqli_connect("localhost:3307", "root", "", "login_register");
+        $conn = mysqli_connect("localhost:3307", "root", "", "banhang");
         $sql = "SELECT name FROM province WHERE province_id = $province_id";
         $kq = mysqli_query($conn, $sql);
         $row = mysqli_fetch_array($kq);

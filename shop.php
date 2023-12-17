@@ -13,15 +13,20 @@
 
     <!-- Favicon -->
     <link href="img/favicon.ico" rel="icon">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet"> 
+    <script src="https://kit.fontawesome.com/54f0cb7e4a.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 
-    <!-- Google Web Fonts -->
-
+    <!-- Libraries Stylesheet -->
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
 </head>
-
 <body>
     <!-- Topbar Start -->
     <div class="container-fluid">
@@ -71,7 +76,7 @@
                     </div>
                 </form>
             </div>
-            <?php include "include/iconGioHang.php" ?>
+            <?php include "include/iconGioHang.php" ;?>
         </div>
     </div>
     <!-- Topbar End -->
@@ -196,17 +201,19 @@
                                     <div  class="result"></div>
                                 </div>
                         </div> 
-                            <div class="dropdown ml-4">
-                                <button class="btn border dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown" aria-haspopup="true"
-                                        aria-expanded="false">
-                                            Sort by
-                                        </button>
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="triggerId">
-                                    <a class="dropdown-item" href="#">Latest</a>
-                                    <a class="dropdown-item" href="#">Popularity</a>
-                                    <a class="dropdown-item" href="#">Best Rating</a>
-                                </div>
+                        <div class="dropdown ml-4">
+                            <button class="btn border dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Sort by
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="triggerId">
+                                <a class="dropdown-item loc" href="#" id="tang" data-additional="asc">Tăng dần</a>
+                                <a class="dropdown-item loc" href="#" id="giam" data-additional="desc">Giảm dần</a>
+                                <a class="dropdown-item loc" href="#" id="a_z" data-additional="az">A - Z</a>
+                                <a class="dropdown-item loc" href="#" id="z_a" data-additional="za">Z - A</a>
+                                <a class="dropdown-item loc" href="#" id="old" data-additional="az">Mới hất</a>
+                                <a class="dropdown-item loc" href="#" id="new" data-additional="za">Cũ Nhất</a>
                             </div>
+                        </div>
                         </div>
                     </div>
                     <div class="row pb-3" id="search" >  
@@ -234,9 +241,13 @@
 
     <!-- JavaScript Libraries -->
 
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
     <script src="lib/easing/easing.min.js"></script>
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
     <script src="js/ajax/search.js"></script>
+    <script src="js/ajax/loc_sp.js"></script>
     <!-- Contact Javascript File -->
     <script src="mail/jqBootstrapValidation.min.js"></script>
     <script src="mail/contact.js"></script>

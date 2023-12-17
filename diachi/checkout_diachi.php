@@ -18,7 +18,11 @@ require 'diachi/connnect.php';
 
 
 $sql = "SELECT * FROM province";
-$result = mysqli_query($conn, $sql);?>
+$result = mysqli_query($conn, $sql);
+$sql1 = "SELECT * from chitiet_user where email = '$email' ";
+$kq1 = mysqli_query($conn, $sql1);
+$row1 = mysqli_fetch_array($kq1);
+?>
 <div class="col-lg-8"> 
                 <div class="mb-4">
               
@@ -35,16 +39,16 @@ $result = mysqli_query($conn, $sql);?>
                         </div>
                         <div class="col-md-6 form-group">
                             <label>Mobile No</label>
-                            <input name="sdt"  class="form-control" type="tel"   placeholder="Nhập số điện thoại (10 chữ số)"  pattern="[0-9]{10}" required >
+                            <input name="sdt"  class="form-control" type="tel"   placeholder="Nhập số điện thoại (10 chữ số)" value="<?php echo $row['sdt']?>"  pattern="[0-9]{10}" required >
                         </div>
                         <div class="col-md-6 form-group">
-                            <label>Address Line 1</label>
+                            <label>Địa chỉ </label>
                             <input name="diachi" class="form-control" type="text" placeholder="123 Street" required>
                         </div>
                        
                         <div class="col-md-6 form-group">
                         <label for="province">Tỉnh/Thành phố</label>
-                        <select id="province" name="province" class="custom-select" require>
+                        <select id="province" name="province" class="custom-select" required>
                         <option value="">Chọn một quận/huyện</option>
                           <?php
                             while ($row = mysqli_fetch_assoc($result)) {
@@ -60,25 +64,15 @@ $result = mysqli_query($conn, $sql);?>
                         </div>
                         <div class="col-md-6 form-group">
                         <label for="district">Quận/Huyện</label>
-                        <select id="district" name="district" class="custom-select" require>
+                        <select id="district" name="district" class="custom-select" required>
                             <option value="">Chọn một quận/huyện</option>
                         </select>
                         </div>
                         <div class="col-md-6 form-group">
                         <label for="wards">Phường/Xã</label>
-                        <select id="wards" name="wards" class="custom-select">
+                        <select id="wards" name="wards" class="custom-select" required>
                             <option value="">Chọn một xã</option>
                         </select>
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>ZIP Code</label>
-                            <input class="form-control" type="text" placeholder="123">
-                        </div>
-                        <div class="col-md-12 form-group">
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="newaccount">
-                                <label class="custom-control-label" for="newaccount">Create an account</label>
-                            </div>
                         </div>
                      
                     </div>

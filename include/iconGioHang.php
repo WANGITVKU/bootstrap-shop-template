@@ -32,7 +32,6 @@
                 // echo count($items);
                 echo  $soSanPhamTrongGioHang ;
                 }
-              
                 ?>
                     </span>
                 </a>

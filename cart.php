@@ -12,14 +12,14 @@ session_start();
 
     <!-- Favicon -->
     <link href="img/favicon.ico" rel="icon">
-
+    <script src="https://kit.fontawesome.com/54f0cb7e4a.js" crossorigin="anonymous"></script>
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet"> 
 
     <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-HJAP06mgExuH2O9VjHSTYewtPl/9PAmzYhe7wFVZ4KTzpkUZ1Bb4YZpfbqVaP5x" crossorigin="anonymous">
     <!-- Libraries Stylesheet -->
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
@@ -130,9 +130,7 @@ session_start();
                       
                               foreach ($size as $size => $value) {
                                 // In ra thông tin từ giỏ hàng
-                                echo "ID: $id_sanpham, Size: $size, Quality: $value<br>";
-                                
-                    
+                                // echo "ID: $id_sanpham, Size: $size, Quality: $value<br>";
                                 // Lặp qua số lần tương ứng với Quality để in ra thông tin từ SQL
                                
                                     // Thực hiện truy vấn SQL và in ra thông tin từ $row
@@ -151,12 +149,15 @@ session_start();
                             <td class="align-middle">
                                 
                                 <div class="input-group quantity mx-auto" style="width: 100px;">
-                                <a href="cart.php?decrease=<?php echo $row['id_sanpham']?>&size1=<?php echo $size; ?>" class="input-group-btn">  
-                                        <i class="btn btn-sm btn-primary btn-minus fa fa-minus"></i>
+                                <a href="cart.php?decrease=<?php echo $row['id_sanpham']?>&size1=<?php echo $size; ?>" class="input-group-btn"> 
+                                        <i class=" btn-sm btn-primary fa fa-minus"></i>
+                                  
                                 </a>
                                     <input style="width: 30px;" type="text"  name=<?php 'qty['.$row['id_sanpham'].']['.$size.']' ?> class="form-control form-control-sm bg-secondary text-center" value="<?php echo $_SESSION['cart'][$row['id_sanpham']][$size] ?>">                                   
                                 <a href="cart.php?increase=<?php echo $row['id_sanpham'];?>&size1=<?php echo $size; ?>" class="input-group-btn">     
-                                            <i class="btn btn-sm btn-primary btn-minus fa fa-plus"> </i>                            
+                                        <i class="btn-sm btn-primary fa fa-plus"></i>
+                                       
+                                                                      
                                     
                                     </a>
                                 </div> 
@@ -183,7 +184,7 @@ session_start();
                             <td class="align-middle">
                           
                             <select class="form-select " name="sizeid_<?php echo $id_sanpham;?>_<?php echo $size;?>" aria-label="Default select example">
-                                <option class="align-middle" selected> <?php echo'Size '. $size ?></option>
+                                <option class="align-middle w-100" selected> <?php echo'Size '. $size ?></option>
                                 
                                     <?php 
                                      if ($conn->connect_error) {
@@ -203,12 +204,12 @@ session_start();
                                         $dataArray = explode(', ', $data);
                                         foreach ($dataArray as $value1) {
                                  ?>
-                                 <option class="align-middle" value="<?php echo $value1 ?>">Size <?php echo $value1 ?></option>
+                                 <option class="align-middle w-100" value="<?php echo $value1 ?>">Size <?php echo $value1 ?></option>
                                  <?php }} ?>
                                 </select> </td>
                             <td class="align-middle"><?php echo number_format($_SESSION['cart'][$row['id_sanpham']][$size]*$row['price'])?> VNĐ</td>
                             
-                            <td class="align-middle"><button class="btn btn-sm btn-primary"><i class="fa fa-times"></i></button></td>
+                            <td class="align-middle"><i class=" btn-sm btn-primary fa fa-times"> </i></td>
                         </tr>   
                         <?php 
                    
@@ -235,7 +236,7 @@ session_start();
                     <div class="input-group">
                         <input type="text" class="form-control p-4" placeholder="Coupon Code">
                         <div class="input-group-append">
-                            <button class="btn btn-primary">Apply Coupon</button>
+                            <button class="btn btn-primary">Apply Coupon </button>
                         </div>
                     </div>
                 </form>

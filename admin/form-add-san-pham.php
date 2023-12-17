@@ -161,7 +161,7 @@
             <form id="form1" method="POST"  action="../admin/xuly/add_sp.php" class="row" enctype="multipart/form-data">
               <div class="form-group col-md-3">
                 <label class="control-label">Mã sản phẩm </label>
-                <input class="form-control" type="text" placeholder="" value="<?php echo $ID ?>">
+                <input class="form-control" type="text" name ="id_sanpham"placeholder="" value="<?php echo $ID ?>">
               </div>
               <input type="hidden" name="form_id" value="1">
               <div class="form-group col-md-3">
@@ -181,7 +181,7 @@
                 <input class="form-control" type="text" name="price">
               </div>
               <div class="form-group col-md-3">
-             
+                <input type="hidden" name="img_old" value=""> 
                 <label for="exampleSelect" class="control-label">Chọn danh mục sản phẩm</label>
                 <select class="form-control" id="exampleSelect" name="id_dmsp">
                   <option>-- Chọn danh mục --</option>
@@ -446,4 +446,4 @@
   </script>
 </body>
 
-</html> 
+</html>

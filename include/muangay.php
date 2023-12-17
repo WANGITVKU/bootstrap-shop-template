@@ -15,7 +15,7 @@ else
 
 }
 $_SESSION['cart'][$id][$size]=$qty;
-header("location:cart.php");
+header("location:../cart.php");
 
  
 ?>

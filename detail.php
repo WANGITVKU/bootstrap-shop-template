@@ -161,7 +161,7 @@
                 </div>
                 <h3 class="font-weight-semi-bold mb-4"><?php echo number_format($row['price']) ?></h3>
                 <p class="mb-4"><?php echo $decodedContent; ?></p>
-                <form  method="post" action="muangay.php?idsp=<?php echo $row['id_sanpham']?>">
+                <form  method="post" action="include/muangay.php?idsp=<?php echo $row['id_sanpham']?>">
                 <div class="d-flex mb-3">
                     <p class="text-dark font-weight-medium mb-0 mr-3">Sizes:</p>
                     <?php

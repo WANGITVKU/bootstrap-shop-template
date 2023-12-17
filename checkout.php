@@ -120,9 +120,9 @@ session_start();
                             <thead class="bg-secondary text-dark">
                                 <tr>
                                     <th>Products</th>
-                                    
+                                    <th>Size</th>
                                     <th>Quantity</th>
-                                
+                                   
                                     <th>Total</th>
 
                                 
@@ -146,7 +146,7 @@ session_start();
                                     // Lặp qua số lần tương ứng với Quality để in ra thông tin từ SQL
                                        
                                         echo "ID: $id_sanpham, Size: $size, Quality: $value<br>";
-                                        echo "Bạn đã chọn: " . $_POST['sizeid_' . $id_sanpham.'_'.$size]." Nó thuộc".$id_sanpham.'<br>' ;
+                                        echo "Bạn đã chọn: " . $_POST['sizeid_' . $id_sanpham.'_'.$size]. " Nó thuộc ".$id_sanpham.'<br>' ;
                                         
                                         // Thực hiện truy vấn SQL và in ra thông tin từ $row
                                         $conn = mysqli_connect("localhost:3307", "root", "", "banhang");
@@ -158,8 +158,10 @@ session_start();
                         <tbody class="align-middle">
                             <tr>
                             <input type="hidden" name="sizeid_<?php echo $id_sanpham;?>_<?php echo $size;?>" value="<?php echo $_POST['sizeid_' . $id_sanpham.'_'.$size]?>">
-                                <td class="align-middle"><?php echo $row['name'] ?>(size <?php echo $_POST['sizeid_' . $id_sanpham.'_'.$size] ?>)</td>
-                                
+                                <td class="align-middle"><?php echo $row['name'] ?></td>
+                                <td class="align-middle">             
+                                (<?php echo $_POST['sizeid_' . $id_sanpham.'_'.$size] ?>)                           
+                                </td>
                                 <td class="align-middle">             
                                     <?php echo '  '. $_SESSION['cart'][$row['id_sanpham']][$size] ?>                                 
                                 </td>

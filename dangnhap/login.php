@@ -21,7 +21,7 @@ session_start();
            $hostName = "localhost:3307";
            $dbUser = "root";
            $dbPassword = "";
-           $dbName = "login_register";
+           $dbName = "banhang";
            $conn = mysqli_connect($hostName, $dbUser, $dbPassword, $dbName);
            if (!$conn) {
                die("Something went wrong;");
@@ -29,15 +29,28 @@ session_start();
             $sql = "SELECT * FROM users WHERE email = '$email'";
             $result = mysqli_query($conn, $sql);
             $user = mysqli_fetch_array($result, MYSQLI_ASSOC);
+            
             if ($user) {
                 if (password_verify($password, $user["password"])) {
-                   
+                    $userId = $user["id"]; 
                     $_SESSION["user"] = "yes";
                     $_SESSION["full_name"] = $user["full_name"];
                     $_SESSION["email"] = $user["email"];
-                    header("Refresh: 2; url=../home.php"); // Chuyển hướng sau 2 giây
-                    echo "<div class='alert alert-success'>Đăng nhập thành công</div";
+
+                    $sql1 = "SELECT * FROM chitiet_user  WHERE id_user = $userId";
+                    $result1 = mysqli_query($conn, $sql1);
+                    $user1 = mysqli_fetch_array($result1, MYSQLI_ASSOC);
+                   if (mysqli_num_rows($result1) > 0) {
+       
+                    header("Refresh: 2; url=../home.php");
+                    echo "<div class='alert alert-success'>Đăng nhập thành công</div>";
                     die();
+                } else {
+                    // User ID does not exist in chitiet_user table
+                    header("Refresh: 2; url=../user/capnhapuser.php");
+                    echo "<div class='alert alert-warning'>Đăng nhập thành công</div>";
+                    die();
+                }
                 }else{
                     echo "<div class='alert alert-danger'>Mật khẩu không chính xác</div>";
                 }

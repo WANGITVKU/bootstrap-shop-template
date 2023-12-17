@@ -4,7 +4,7 @@
 $host = "localhost:3307"; 
 $username = "root"; 
 $password = ""; 
-$dbname = "login_register"; 
+$dbname = "banhang"; 
 
 // Create connection
 $conn = mysqli_connect($host, $username, $password, $dbname);

@@ -56,7 +56,7 @@
     <main class="app-content">
         <div class="app-title">
             <ul class="app-breadcrumb breadcrumb side">
-                <li class="breadcrumb-item active"><a href="#"><b>Danh sách đơn hàng b</b></a></li>
+                <li class="breadcrumb-item active"><a href="#"><b>Danh sách đơn hàng </b></a></li>
             </ul>
             <div id="clock"></div>
         </div>
@@ -134,8 +134,10 @@
                                           <td><?php echo $row['time']   ?> </td>
                                           <td><div id="myElement<?php echo $row['id_donhang']?>" onclick="changeContent(<?php echo $row['id_donhang']?>)"><?php echo html_entity_decode($row['tinh_trang']);?></td>
                                     <td><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
-                                            onclick="myFunction(this)"><i class="fas fa-trash-alt"></i> 
-                                        </button>
+                                              data-id_donhang="<?php echo $row['id_donhang'] ?>"
+                                              onclick="myFunction('<?php echo $row['id_donhang'] ?>')">
+                                          <i class="fas fa-trash-alt"></i> 
+                                                  </button>
                                         <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp" data-toggle="modal"
                                        data-target="#ModalUP"><i class="fas fa-edit"></i></button>
                                        
@@ -143,12 +145,6 @@
                                     <?php    
                                     }
                                     ?>                              
-                                <tr>
-                                    <td width="10"></td>
-                                    <td colspan="4"><b>Tổng giá trị đơn hàng là :<b></td>
-                                    <td colspan="4"><b>Tổng giá trị đơn hàng là :<b></td>
-                                    <td></td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -156,30 +152,21 @@
             </div>
         </div>
     </main>
-
-<!--
-  MODAL
--->
-
-<!--
-MODAL
--->
-
-    <!-- Essential javascripts for application to work-->
-    <script src="js/jquery-3.2.1.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <script src="js_ajax/xulydh.js"></script>
+    <script src="../js/js/jquery-3.2.1.min.js"></script>
+    <script src="../js/js/popper.min.js"></script>
+    <script src="../js/js/bootstrap.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="src/jquery.table2excel.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js_ajax/xulydh.js"></script>
+    <script src="../js/js/main.js"></script>
     <!-- The javascript plugin to display page loading on top-->
-    <script src="js/plugins/pace.min.js"></script>
+    <script src="../js/js/plugins/pace.min.js"></script>
     <!-- Page specific javascripts-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
     <!-- Data table plugin-->
-    <script type="text/javascript" src="js/plugins/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="js/js/plugins/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript" src="../js/js/plugins/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="../js/js/plugins/dataTables.bootstrap.min.js"></script>
+    <!-- Essential javascripts for application to work-->
     <script type="text/javascript">
         $('#sampleTable').DataTable();
         //Thời Gian
@@ -230,18 +217,36 @@ MODAL
         }
         jQuery(function () {
             jQuery(".trash").click(function () {
+                var id_donhang = $(this).data("id_donhang"); // Lấy giá trị id_sanpham từ thuộc tính data
+
                 swal({
                     title: "Cảnh báo",
                     text: "Bạn có chắc chắn là muốn xóa sản phẩm này?",
                     buttons: ["Hủy bỏ", "Đồng ý"],
                 })
-                    .then((willDelete) => {
-                        if (willDelete) {
-                            swal("Đã xóa thành công.!", {
-
-                            });
-                        }
-                    });
+                .then((willDelete) => {
+                    if (willDelete) {
+                        // Sử dụng jQuery AJAX để gửi dữ liệu đến trang xử lý
+                        $.ajax({
+                            type: "POST",
+                            url: "xuly/xuly_xoa.php",
+                            data: { id_donhang:id_donhang},
+                            success: function (response) {
+                                // Xử lý phản hồi từ máy chủ
+                                swal("Đã xóa thành công.!", {
+                                    icon: "success",
+                                }).then(function (response) {
+                                    // Tải lại trang
+                                    location.reload();
+                                });
+                            },
+                            error: function (error) {
+                                // Xử lý lỗi
+                                console.error("Error:", error);
+                            }
+                        });
+                    }
+                });
             });
         });
         oTable = $('#sampleTable').dataTable();

@@ -27,7 +27,7 @@ if(isset($_POST['submit'])){
         // echo $row1['name'];
 
     echo "<pre>";
-    var_dump($_POST);
+    // var_dump($_POST);
         $sql2 = "SELECT name FROM wards WHERE wards_id = $wards_id";
         $kq2 = mysqli_query($conn, $sql2);
         $row2 = mysqli_fetch_array($kq2);

@@ -11,10 +11,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Main CSS-->
         <link rel="stylesheet" type="text/css" href="../css/admin/main_admin.css">
+        <link rel="stylesheet" type="text/css" href="../css/admin/icon_admin.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
         <!-- or -->
         <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
-      
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
         <!-- Font-icon css-->
         <link rel="stylesheet" type="text/css"
           href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -23,7 +24,69 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
       
       </head>
+      <script>
 
+      function readURL(input, thumbimage, secondImage ) {
+        if (input.files && input.files[0]) { //Sử dụng cho Firefox - Chrome
+          var reader = new FileReader();
+          reader.onload = function (e) {
+            $(thumbimage).attr('src', e.target.result);
+            $(thumbimage).show();
+            // Hiển thị ảnh thứ hai
+            $(secondImage).attr('src', e.target.result);
+            $(secondImage).show();
+          }
+          reader.readAsDataURL(input.files[0]);
+        } else { // Sử dụng cho IE
+          $(thumbimage).attr('src', input.value);
+          // Hiển thị ảnh thứ hai
+          $(secondImage).attr('src', input.value);
+          $(secondImage).show();
+        }
+      $("#thumbimage").show();
+      $('.filename').text($("#uploadfile").val());
+      $('.Choicefile').css('background', '#14142B');
+      $('.Choicefile').css('cursor', 'default');
+      $(".removeimg").show();
+      $(".Choicefile").unbind('click');
+
+    }
+    $(document).ready(function () {
+  $(".Choicefile").bind('click', function () {
+    $("#uploadfile").click();
+  });
+
+  $(".SecondChoicefile").bind('click', function () {
+    $("#secondUploadfile").click();
+  });
+
+  $(".removeimg").click(function () {
+    $("#thumbimage").attr('src', '').hide();
+    // Ẩn khung thứ hai
+    $("#secondImage").attr('src', '').hide();
+    $("#myfileupload").html('<input type="file" id="uploadfile"  name="ImageUpload" onchange="readURL(this, \'#thumbimage\', \'#secondImage\');" />');
+    $(".removeimg").hide();
+    $(".Choicefile").bind('click', function () {
+      $("#uploadfile").click();
+    });
+    $('.Choicefile').css('background', '#14142B');
+    $('.Choicefile').css('cursor', 'pointer');
+    $(".filename").text("");
+  });
+
+  $(".removeSecondImg").click(function () {
+    // Ẩn khung thứ hai và làm sạch input
+    $("#secondImage").attr('src', '').hide();
+    $("#secondImageUpload").html('<input type="file" id="secondUploadfile" name="SecondImageUpload" onchange="readURL(this, \'#thumbimage\', \'#secondImage\');" />');
+    $(".removeSecondImg").hide();
+    $(".SecondChoicefile").bind('click', function () {
+      $("#secondUploadfile").click();
+    });
+    $('#secondBoxchoice').css('background', '#14142B');
+    $('#secondBoxchoice').css('cursor', 'pointer');
+  });
+});
+  </script>
 <body onload="time()" class="app sidebar-mini rtl">
    <!-- Navbar-->
    
@@ -160,32 +223,18 @@
                                           ?></td>
                                                   
                                     <td><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
-                                            onclick="myFunction(this)"><i class="fas fa-trash-alt"></i> 
-                                        </button>
-                                        <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp" data-toggle="modal"
-                                       data-target="#ModalUP"><i class="fas fa-edit"></i></button>
-                                       
+                                              data-id-sanpham="<?php echo $row['id_sanpham'] ?>"
+                                              onclick="myFunction('<?php echo $row['id_sanpham'] ?>')">
+                                          <i class="fas fa-trash-alt"></i> 
+                                                  </button>
+                                        <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" onclick="window.location.href='sua_sp.php?idsp=<?php echo $row['id_sanpham']; ?>'"><i class="fas fa-edit"></i>
+                                          </button>
+                                        
                                     </td>
                                     <?php    
                                     }
                                     ?>                              
-                                <tr>
-                                    <td width="10"><input type="checkbox" name="check1" value="1"></td>
-                                    <td>83216006</td>
-                                    <td>Giường ngủ Kara 1.6x2m</td>
-                                    <td><img src="/img-sanpham/kara.jpg" alt="" width="100px;"></td>
-                                    <td>60</td>
-                                     <td><span class="badge bg-success">Còn hàng</span></td>
-                                    <td>14.500.000 đ</td>
-                                    <td>Giường người lớn</td>
-                                    <td><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
-                                            onclick="myFunction(this)"><i class="fas fa-trash-alt"></i>
-                                        </button>
-                                        <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp" data-toggle="modal"
-                      data-target="#ModalUP"><i class="fas fa-edit"></i></button>
-                                   
-                                    </td>
-                                </tr>
+                                
                             </tbody>
                         </table>
                     </div>
@@ -194,86 +243,13 @@
         </div>
     </main>
 
-<!--
-  MODAL
--->
-<div class="modal fade" id="ModalUP" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static"
-data-keyboard="false">
-<div class="modal-dialog modal-dialog-centered" role="document">
-  <div class="modal-content">
 
-    <div class="modal-body">
-      <div class="row">
-        <div class="form-group  col-md-12">
-          <span class="thong-tin-thanh-toan">
-            <h5>Chỉnh sửa thông tin sản phẩm cơ bản</h5>
-          </span>
-        </div>
-      </div>
-      <div class="row">
-        <div class="form-group col-md-6">
-            <label class="control-label">Mã sản phẩm </label>
-            <input class="form-control" type="number" value="71309005">
-          </div>
-        <div class="form-group col-md-6">
-            <label class="control-label">Tên sản phẩm</label>
-          <input class="form-control" type="text" required value="Bàn ăn gỗ Theresa">
-        </div>
-        <div class="form-group  col-md-6">
-            <label class="control-label">Số lượng</label>
-          <input class="form-control" type="number" required value="20">
-        </div>
-        <div class="form-group col-md-6 ">
-            <label for="exampleSelect1" class="control-label">Tình trạng sản phẩm</label>
-            <select class="form-control" id="exampleSelect1">
-              <option>Còn hàng</option>
-              <option>Hết hàng</option>
-              <option>Đang nhập hàng</option>
-            </select>
-          </div>
-          <div class="form-group col-md-6">
-            <label class="control-label">Giá bán</label>
-            <input class="form-control" type="text" value="5.600.000">
-          </div>
-          <div class="form-group col-md-6">
-            <label for="exampleSelect1" class="control-label">Danh mục</label>
-            <select class="form-control" id="exampleSelect1">
-              <option>Bàn ăn</option>
-              <option>Bàn thông minh</option>
-              <option>Tủ</option>
-              <option>Ghế gỗ</option>
-              <option>Ghế sắt</option>
-              <option>Giường người lớn</option>
-              <option>Giường trẻ em</option>
-              <option>Bàn trang điểm</option>
-              <option>Giá đỡ</option>
-            </select>
-          </div>
-      </div>
-      <BR>
-      <a href="#" style="    float: right;
-    font-weight: 600;
-    color: #ea0000;">Chỉnh sửa sản phẩm nâng cao</a>
-      <BR>
-      <BR>
-      <button class="btn btn-save" type="button">Lưu lại</button>
-      <a class="btn btn-cancel" data-dismiss="modal" href="#">Hủy bỏ</a>
-      <BR>
-    </div>
-    <div class="modal-footer">
-    </div>
-  </div>
-</div>
-</div>
-<!--
-MODAL
--->
 
     <!-- Essential javascripts for application to work-->
     <script src="../js/js/jquery-3.2.1.min.js"></script>
     <script src="../js/js/popper.min.js"></script>
     <script src="../js/js/bootstrap.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="src/jquery.table2excel.js"></script>
     <script src="../js/js/main.js"></script>
     <!-- The javascript plugin to display page loading on top-->
@@ -327,32 +303,46 @@ MODAL
     }
     </script>
     <script>
-        function deleteRow(r) {
-            var i = r.parentNode.parentNode.rowIndex;
-            document.getElementById("myTable").deleteRow(i);
-        }
-        jQuery(function () {
-            jQuery(".trash").click(function () {
-                swal({
-                    title: "Cảnh báo",
-                    text: "Bạn có chắc chắn là muốn xóa sản phẩm này?",
-                    buttons: ["Hủy bỏ", "Đồng ý"],
-                })
-                    .then((willDelete) => {
-                        if (willDelete) {
-                            swal("Đã xóa thành công.!", {
+      jQuery(function () {
+    jQuery(".trash").click(function () {
+        var id_sanpham = $(this).data("id-sanpham"); // Lấy giá trị id_sanpham từ thuộc tính data
 
-                            });
-                        }
-                    });
-            });
+        swal({
+            title: "Cảnh báo",
+            text: "Bạn có chắc chắn là muốn xóa sản phẩm này?",
+            buttons: ["Hủy bỏ", "Đồng ý"],
+        })
+        .then((willDelete) => {
+            if (willDelete) {
+                // Sử dụng jQuery AJAX để gửi dữ liệu đến trang xử lý
+                $.ajax({
+                    type: "POST",
+                    url: "xuly/xuly_xoa.php",
+                    data: { id_sanpham: id_sanpham },
+                    success: function (response) {
+                        // Xử lý phản hồi từ máy chủ
+                        swal("Đã xóa thành công.!", {
+                            icon: "success",
+                        }).then(function (response) {
+                            // Tải lại trang
+                            location.reload();
+                        });
+                    },
+                    error: function (error) {
+                        // Xử lý lỗi
+                        console.error("Error:", error);
+                    }
+                });
+            }
         });
-        oTable = $('#sampleTable').dataTable();
-        $('#all').click(function (e) {
-            $('#sampleTable tbody :checkbox').prop('checked', $(this).is(':checked'));
-            e.stopImmediatePropagation();
-        });
+    });
+});
+        
     </script>
+    <div id="result"></div>
+
+<!-- Script Ajax -->
+
 </body>
 
 </html>
