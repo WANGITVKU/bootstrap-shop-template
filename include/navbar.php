@@ -60,6 +60,7 @@
                         if (isset($_SESSION["full_name"])) {
                             $full_name = $_SESSION["full_name"];
                             $email = $_SESSION["email"]; 
+                            $id_user= $_SESSION["id_user"];
                             echo'
                             <div class="navbar-nav ml-auto py-0">
                             <div class="fas fa-user-secret">

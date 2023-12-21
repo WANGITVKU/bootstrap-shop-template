@@ -29,7 +29,7 @@
     <li><a class="app-menu__item " href="donhang_user.php"><i
           class='app-menu__icon bx bx-purchase-tag-alt'></i><span class="app-menu__label">Đơn Hàng Của Tôi</span></a>
     </li>
-    <li><a class="app-menu__item" href="admin_qldm.php"><i class='app-menu__icon bx bx-task'></i><span
+    <li><a class="app-menu__item" href="binhluan_user.php"><i class='app-menu__icon bx bx-task'></i><span
           class="app-menu__label">Quản lý bình luận</span></a></li>
          
   

@@ -77,7 +77,7 @@
                 <i class="fas fa-arrow-left"></i>
             </div>
             <div class="footer-items">
-                <li><a href=""><img src="img/dathongbao.png" alt=""></a></li>
+             
                 <li><a href="">Liên hệ</a></li>
                 <li><a href="">Tuyển dụng</a></li>
                 <li><a href="">Giới thiệu</a></li>

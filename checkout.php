@@ -2,6 +2,10 @@
 <html lang="en">
 <?php
 session_start(); 
+if (!isset($_SESSION['email'])) {
+    header("Location: dangnhap/login.php");
+    exit();
+}
 ?>
 <head>
     <meta charset="utf-8">
@@ -93,11 +97,12 @@ session_start();
     <!-- Page Header Start -->
     <div class="container-fluid bg-secondary mb-5">
         <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
-            <h1 class="font-weight-semi-bold text-uppercase mb-3">Checkout</h1>
+            <h1 class="font-weight-semi-bold text-uppercase mb-3">Thủ tục thanh toán</h1>
             <div class="d-inline-flex">
-                <p class="m-0"><a href="">Home</a></p>
+                <p class="m-0"><a href="">Trang chủ</a></p>
                 <p class="m-0 px-2">-</p>
-                <p class="m-0">Checkout</p>
+                <p class="m-0">Thủ tục thanh toán
+</p>
             </div>
         </div>
     </div>
@@ -113,23 +118,26 @@ session_start();
             
                 <div class="card border-secondary mb-5">
                     <div class="card-header bg-secondary border-0">
-                        <h4 class="font-weight-semi-bold m-0">Order Total</h4>
+                        <h4 class="font-weight-semi-bold m-0">Tổng số đơn hàng</h4>
                     </div>  
                     <div class="card-body">
                         <table class="table table-borderless text-center mb-0">
                             <thead class="bg-secondary text-dark">
                                 <tr>
-                                    <th>Products</th>
+                                    <th>Các sản phẩm</th>
                                     <th>Size</th>
-                                    <th>Quantity</th>
+                                    <th>Số lượng</th>
                                    
-                                    <th>Total</th>
+                                    <th>Tổng cộng</th>
 
                                 
                                 </tr>
                             </thead>
                         <?php
                             $total = 0;
+                       
+                         
+             
                         if (empty($_SESSION['cart'])) {
                             echo "Your cart is empty."; // Or whatever message you want
                         } else {
@@ -140,20 +148,14 @@ session_start();
                         
                                 foreach ($size as $size => $value) {
                                     // In ra thông tin từ giỏ hàng
-                                
-                                    
-                        
-                                    // Lặp qua số lần tương ứng với Quality để in ra thông tin từ SQL
-                                       
-                                        echo "ID: $id_sanpham, Size: $size, Quality: $value<br>";
-                                        echo "Bạn đã chọn: " . $_POST['sizeid_' . $id_sanpham.'_'.$size]. " Nó thuộc ".$id_sanpham.'<br>' ;
-                                        
+                                    // Lặp qua số lần tương ứng với Quality để in ra thông tin từ SQL                         
+                                        // echo "ID: $id_sanpham, Size: $size, Quality: $value<br>";
+                                        // echo "Bạn đã chọn: " . $_POST['sizeid_' . $id_sanpham.'_'.$size]. " Nó thuộc ".$id_sanpham.'<br>' ; 
                                         // Thực hiện truy vấn SQL và in ra thông tin từ $row
                                         $conn = mysqli_connect("localhost:3307", "root", "", "banhang");
                                         $sql = "SELECT * from sanpham where id_sanpham = $id_sanpham";
                                         $kq = mysqli_query($conn, $sql);
-                                        while ($row = mysqli_fetch_array($kq)) {
-                                            
+                                        while ($row = mysqli_fetch_array($kq)) {               
                             ?>
                         <tbody class="align-middle">
                             <tr>
@@ -186,12 +188,13 @@ session_start();
                             // }
                         }}  }
                         $_SESSION['cart_total'] = $total;}
+                    
                             ?>
                         </tbody>
                     </table> 
                     <div class="card-body">
                             <div class="d-flex justify-content-between mb-3 pt-1">
-                                <h6 class="font-weight-medium">Subtotal</h6>
+                                <h6 class="font-weight-medium">Tổng giá trị đơn hàng</h6>
                                 <h6 class="font-weight-medium"><?php echo number_format($total)."VNĐ" ?></h6>
                             </div>
                             <div class="d-flex justify-content-between">
@@ -201,18 +204,18 @@ session_start();
                         </div>
                         <div class="card-footer border-secondary bg-transparent">
                             <div class="d-flex justify-content-between mt-2">
-                                <h5 class="font-weight-bold">Total</h5>
+                                <h5 class="font-weight-bold">Tổng cộng</h5>
                                 <h5 class="font-weight-bold"><?php echo number_format($total+30000)."VNĐ" ?></h5>
                                 <input type="hidden" name="tongtien" value="<?php  echo (int)($total+30000) ?>">
                                 
                             </div>  
-                            <input type="submit" name="submit"  class="btn btn-block btn-primary my-3 py-3" value="Proceed To Checkout"></input>
+                            <input type="submit" name="submit"  class="btn btn-block btn-primary my-3 py-3" value="Hoàn tất đặt hàng"></input>
                         </div>
                         
 
                     <div class="card border-secondary mb-5">
                         <div class="card-header bg-secondary border-0">
-                            <h4 class="font-weight-semi-bold m-0">Payment</h4>
+                            <h4 class="font-weight-semi-bold m-0">Phương thức nhận hàng</h4>
                         </div>
                         <div class="card-body">
                             <div class="form-group">
@@ -224,18 +227,17 @@ session_start();
                             <div class="form-group">
                                 <div class="custom-control custom-radio">
                                     <input type="radio" class="custom-control-input" name="payment" id="directcheck">
-                                    <label class="custom-control-label" for="directcheck">Direct Check</label>
+                                    <label class="custom-control-label" for="directcheck">Thanh toán khi nhận hàng</label>
                                 </div>
                             </div>
                             <div class="">
                                 <div class="custom-control custom-radio">
                                     <input type="radio" class="custom-control-input" name="payment" id="banktransfer">
-                                    <label class="custom-control-label" for="banktransfer">Bank Transfer</label>
+                                    <label class="custom-control-label" for="banktransfer">Chuyển khoảng ngân hàng </label>
                                 </div>
                             </div>
                         </div>
                         <div class="card-footer border-secondary bg-transparent">
-                        <input type="submit" name="submit"   class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3" value="Place Order"></input>
                        
                         </div>
                     </div>
@@ -250,7 +252,7 @@ session_start();
 
 
     <!-- Footer Start -->
-        <?php include "include/footer.php"?>
+        
     <!-- Footer End -->
 
 

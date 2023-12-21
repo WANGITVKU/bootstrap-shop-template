@@ -56,61 +56,57 @@
     <main class="app-content">
         <div class="app-title">
             <ul class="app-breadcrumb breadcrumb side">
-                <li class="breadcrumb-item active"><a href="#"><b>Danh sách đơn hàng </b></a></li>
+                <li class="breadcrumb-item active"><a href="#"><b>Danh sách bình luận của  user </b></a></li>
             </ul>
             <div id="clock"></div>
         </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="tile">
-                    <div class="tile-body">                  
+                    <div class="tile-body">
                         <table class="table table-hover table-bordered" id="sampleTable">
                             <thead>
                                 <tr>
                                     <th width="10"><input type="checkbox" id="all"></th>
-                                    <th>Mã đơn hàng</th>
-                                    <th>Tên Người Mua</th>
-                                    <th>Email</th>
-                                    <th>Số Điện Thoại</th>
-                                    <th>Địa chỉ</th>
-                                    <th>Tổng tiền</th>
-                                    <th>Thời gian Đặt hàng</th>
-                                    <th>Tình Trạng</th>
+                                    <th>Tên sản phẩm</th>
+                                    <th>Ảnh</th>
+                                    <th>Tên người dùng</th>
+                                    <th>Nội dung đã bình luận</th>
+                                    <th>Thơi gian</th>
                                     <th>Chức năng</th>
                                 </tr>
                             </thead>
                             <tbody class="align-middle">
                                 
                                 <?php  
-                                    if (isset($_SESSION["full_name"])) {
-                                    $full_name = $_SESSION["full_name"];
-                                    $email = $_SESSION["email"];}
                                     $conn = mysqli_connect("localhost:3307","root","","banhang");
-                                    $sql="SELECT * from donhang where email = '$email'";
-                                  
-                                    $kq= mysqli_query($conn,$sql);
-                               
-                                         
-                                    while ($row= mysqli_fetch_array($kq)){
+                                    
+                                    
+                                    $sql1="SELECT * from binhluan  ORDER BY id_binhluan DESC ";
+                                    $kq1= mysqli_query($conn,$sql1);
+                                    
+                                    while ($row1= mysqli_fetch_array($kq1)){
+                                        
+                                        // var_dump($row);
+                                        $sql2="SELECT * from sanpham where id_sanpham = {$row1['id_sanpham']}";
+                                        $kq2= mysqli_query($conn,$sql2);
+                                        $row2 = mysqli_fetch_array($kq2); 
+                                        $sql = "SELECT * from chitiet_user where id_user = {$row1['id_user']}";
+                                        $kq = mysqli_query($conn, $sql);
+                                        $row = mysqli_fetch_array($kq);
+
                                         echo '<tr>';?>
                                         <td class="align-middle" width="10"><input type="checkbox" name="check1" value="1"></td>
-                                         <td class="align-middle"><?php echo $row['id_donhang']   ?> <br> <a class="details-link" href="chitietdonhang.php?iddh=<?php echo $row['id_donhang'] ?>">Xem Chi Tiết </a>  </td>
-                                         <td class="align-middle"><?php  echo $row['full_name']   ?></td>
-                                      
-                                          <td class="align-middle" > <?php echo $row['email']   ?></td>
-                                          <td class="align-middle"><?php echo $row['sdt']   ?> </td>
-                                          <td class="align-middle"><?php echo $row['dia_chi']   ?> </td>
+                                        <td class="align-middle"><?php  echo $row2['name']   ?></td>
+                                        <td class="align-middle text-center" style="width: 100px; height: 50px;">
+                                                <img src="../<?php echo  $row2['img']  ?>" alt="" style="width: 100%; height:auto;">
+                                          </td>
+                                          <td class="align-middle"><?php  echo $row['full_name']   ?></td>
+                                          <td class="align-middle" > <?php echo $row1['noidung']   ?></td>
+                                          <td><?php echo $row1['time'] ?> </td>
                                          
-                                          <td><?php echo $row['tong_tien']   ?> </td>
-                                          <td><?php echo $row['time']   ?> </td>
-                                          <td><div id="myElement<?php echo $row['id_donhang']?>" onclick="changeContent(<?php echo $row['id_donhang']?>)"><?php echo html_entity_decode($row['tinh_trang']);?></td>
-                                    <td><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
-                                              data-id_donhang="<?php echo $row['id_donhang'] ?>"
-                                              onclick="myFunction('<?php echo $row['id_donhang'] ?>')">
-                                          <i class="fas fa-trash-alt"></i> 
-                                                  </button>
-                                        <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp" data-toggle="modal"
-                                       data-target="#ModalUP"><i class="fas fa-edit"></i></button>
+                                    <td>
+                                        <a href= "../detail.php?idsp=<?php echo $row1['id_sanpham']   ?>"><button class="btn btn-primary btn-sm edit" type="button"><i class="fa fa-eye"></i></button> </a>
                                        
                                     </td>
                                     <?php    
@@ -182,44 +178,7 @@
     }
     </script>
     <script>
-        function deleteRow(r) {
-            var i = r.parentNode.parentNode.rowIndex;
-            document.getElementById("myTable").deleteRow(i);
-        }
-        jQuery(function () {
-            jQuery(".trash").click(function () {
-                var id_donhang = $(this).data("id_donhang"); // Lấy giá trị id_sanpham từ thuộc tính data
-
-                swal({
-                    title: "Cảnh báo",
-                    text: "Bạn có chắc chắn là muốn xóa sản phẩm này?",
-                    buttons: ["Hủy bỏ", "Đồng ý"],
-                })
-                .then((willDelete) => {
-                    if (willDelete) {
-                        // Sử dụng jQuery AJAX để gửi dữ liệu đến trang xử lý
-                        $.ajax({
-                            type: "POST",
-                            url: "xuly/xuly_xoa.php",
-                            data: { id_donhang:id_donhang},
-                            success: function (response) {
-                                // Xử lý phản hồi từ máy chủ
-                                swal("Đã xóa thành công.!", {
-                                    icon: "success",
-                                }).then(function (response) {
-                                    // Tải lại trang
-                                    location.reload();
-                                });
-                            },
-                            error: function (error) {
-                                // Xử lý lỗi
-                                console.error("Error:", error);
-                            }
-                        });
-                    }
-                });
-            });
-        });
+        
         oTable = $('#sampleTable').dataTable();
         $('#all').click(function (e) {
             $('#sampleTable tbody :checkbox').prop('checked', $(this).is(':checked'));

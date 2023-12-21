@@ -16,7 +16,6 @@ require 'diachi/connnect.php';
     7. Show kết quả
     */
 
-
 $sql = "SELECT * FROM province";
 $result = mysqli_query($conn, $sql);
 $sql1 = "SELECT * from chitiet_user where email = '$email' ";
@@ -26,10 +25,10 @@ $row1 = mysqli_fetch_array($kq1);
 <div class="col-lg-8"> 
                 <div class="mb-4">
               
-                    <h4 class="font-weight-semi-bold mb-4">Billing Address</h4>
+                    <h4 class="font-weight-semi-bold mb-4">Địa chỉ thanh toán và nhận hàng</h4>
                     <div class="row">
                         <div class="col-md-6 form-group">
-                            <label>Full Name</label>
+                            <label>Họ và tên </label>
                             <input name="name" class="form-control" type="text" placeholder="John" value="<?php echo $full_name ?>" required>
                         </div>
                        
@@ -38,11 +37,11 @@ $row1 = mysqli_fetch_array($kq1);
                             <input name="email" class="form-control" type="email" placeholder="example@email.com " value="<?php echo $email ?>" required>
                         </div>
                         <div class="col-md-6 form-group">
-                            <label>Mobile No</label>
-                            <input name="sdt"  class="form-control" type="tel"   placeholder="Nhập số điện thoại (10 chữ số)" value="<?php echo $row['sdt']?>"  pattern="[0-9]{10}" required >
+                            <label>Số điện thoại</label>
+                            <input name="sdt"  class="form-control" type="tel"   placeholder="Nhập số điện thoại (10 chữ số)" value="0<?php echo $row1['sdt']?>"  pattern="[0-9]{10}" required >
                         </div>
                         <div class="col-md-6 form-group">
-                            <label>Địa chỉ </label>
+                            <label>Địa chỉ</label>
                             <input name="diachi" class="form-control" type="text" placeholder="123 Street" required>
                         </div>
                        
@@ -54,7 +53,7 @@ $row1 = mysqli_fetch_array($kq1);
                             while ($row = mysqli_fetch_assoc($result)) {
                                 
                             ?>  
-                                <option value="<?php echo $row['province_id'] ?>"><?php echo $row['name'] ?></option>
+                                <option value="<?php echo $row['province_id'] ?>"><?php echo $row1['name'] ?></option>
                                  
                             <?php
                             

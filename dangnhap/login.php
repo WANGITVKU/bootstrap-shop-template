@@ -6,7 +6,7 @@ session_start();
 <html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8">
-    <title> Login and Registration Form in HTML & CSS | CodingLab </title>
+    <title> Đăng Nhập </title>
     <link rel="stylesheet" href="../css/dangnhap.css">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <!-- Fontawesome CDN Link -->
@@ -36,7 +36,7 @@ session_start();
                     $_SESSION["user"] = "yes";
                     $_SESSION["full_name"] = $user["full_name"];
                     $_SESSION["email"] = $user["email"];
-
+                    $_SESSION["id_user"] = $user["id"];
                     $sql1 = "SELECT * FROM chitiet_user  WHERE id_user = $userId";
                     $result1 = mysqli_query($conn, $sql1);
                     $user1 = mysqli_fetch_array($result1, MYSQLI_ASSOC);
@@ -91,33 +91,33 @@ session_start();
       <div class="front">
         <img src="https://sneakernews.com/wp-content/uploads/2015/10/2015-Nike-Mag-GIF1_original.gif" alt="">
         <div class="text">
-          <span class="text-1">Every new friend is a <br> new adventure</span>
-          <span class="text-2">Let's get connected</span>
+          <span class="text-1">Chào mừng bạn đến với BreakRules<br> Hãy đăng nhập</span>
+          <span class="text-2">Bắt đầu mua sắp nào !</span>
         </div>
       </div>
     </div>
     <div class="forms">
         <div class="form-content">
           <div class="login-form">
-            <div class="title">Login</div>
+            <div class="title">ĐĂNG NHẬP</div>
           <form action="#" method="post">
             <div class="input-boxes">
               <div class="input-box">
                 <i class="fas fa-envelope"></i>
-                <input type="email"  name="email" placeholder="Enter your email" required>
+                <input type="email"  name="email" placeholder="Nhập email của bạn" required>
               </div>
               <div class="input-box">
                 <i class="fas fa-lock"></i>
-                <input type="password" name="password" placeholder="Enter your password" required>
+                <input type="password" name="password" placeholder="Nhập mật khẩu" required>
               </div>
-              <div class="text"><a href="#">Forgot password?</a></div>
+              <div class="text"><a href="#">Bạn quên mật khẩu?</a></div>
               <div class="button input-box">
-                <input type="submit" name="login" value="Sumbit">
+                <input type="submit" name="login" value="Đăng nhập">
               </div>
               <div class="button1 input-box">
-                <input type="submit" name="admin" value="Sumbit by admin">
+                <input type="submit" name="admin" value="Đăng nhập cho admin">
               </div>
-              <div class="text sign-up-text">Don't have an account? <label for="flip" ><a href= "../dangnhap/signup.php" > Sign Up </a></label></div>
+              <div class="text sign-up-text">Bạn chưa có tài khoản? <label for="flip" ><a href= "../dangnhap/signup.php" > Đăng ký</a></label></div>
             </div>
         </form>
       </div>

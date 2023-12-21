@@ -32,7 +32,9 @@
           class="app-menu__label">Quản lý đơn hàng</span></a></li>
     <li><a class="app-menu__item" href="admin_qldm.php"><i class='app-menu__icon bx bx-task'></i><span
           class="app-menu__label">Quản lý danh mục</span></a></li>
-          <li><a class="app-menu__item" href="admin_qlbrand.php"><i class='app-menu__icon bx bx-task'></i><span
+    <li><a class="app-menu__item" href="admin_qlbl.php"><i class='app-menu__icon bx bx-task'></i><span
+         class="app-menu__label">Quản lý bình luận</span></a></li>
+    <li><a class="app-menu__item" href="admin_qlbrand.php"><i class='app-menu__icon bx bx-task'></i><span
           class="app-menu__label">Quản lý thương hiệu</span></a></li>
   
     <li><a class="app-menu__item" href="#"><i class='app-menu__icon bx bx-cog'></i><span class="app-menu__label">Cài

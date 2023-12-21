@@ -90,11 +90,11 @@ session_start();
     <!-- Page Header Start -->
     <div class="container-fluid bg-secondary mb-5">
         <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
-            <h1 class="font-weight-semi-bold text-uppercase mb-3">Shopping Cart</h1>
+            <h1 class="font-weight-semi-bold text-uppercase mb-3">Giỏ Hàng của bạn</h1>
             <div class="d-inline-flex">
-                <p class="m-0"><a href="">Home</a></p>
+                <p class="m-0"><a href="">Trang chur</a></p>
                 <p class="m-0 px-2">-</p>
-                <p class="m-0">Shopping Cart</p>
+                <p class="m-0">Giỏ hàng</p>
             </div>
         </div>
     </div>
@@ -110,11 +110,11 @@ session_start();
             <table class="table table-borderless text-center mb-0">
                         <thead class="bg-secondary text-dark">
                             <tr>
-                                <th>Products</th>
-                                <th>Price</th>
-                                <th>Quantity</th>
+                                <th colspan="2">Các sản phẩm</th>
+                                <th>Giá</th>
+                                <th>Số lượng</th>
                                 <th>Size</th>
-                                <th>Total</th>
+                                <th>Tổng cộng</th>
 
                                 <th>Remove</th>
                             </tr>
@@ -143,8 +143,8 @@ session_start();
                         ?>
                     <tbody class="align-middle">
                         <tr>
-                             
-                            <td class="align-middle"><img src="<?php echo $row['img'] ?>" alt="" style="width: 50px;"><?php echo $row['name'] ?></td>
+                            <td class="align-middle"><?php echo $row['name'] ?></td>
+                            <td class="align-middle"><img src="<?php echo $row['img'] ?>" alt="" style="width: 50px;"></td>
                             <td class="align-middle"><?php echo number_format($row['price'])  ?> VNĐ</td>
                             <td class="align-middle">
                                 
@@ -236,17 +236,17 @@ session_start();
                     <div class="input-group">
                         <input type="text" class="form-control p-4" placeholder="Coupon Code">
                         <div class="input-group-append">
-                            <button class="btn btn-primary">Apply Coupon </button>
+                            <button class="btn btn-primary">Mã giảm giá</button>
                         </div>
                     </div>
                 </form>
                 <div class="card border-secondary mb-5">
                     <div class="card-header bg-secondary border-0">
-                        <h4 class="font-weight-semi-bold m-0">Cart Summary</h4>
+                        <h4 class="font-weight-semi-bold m-0">Tóm tắt giỏ hàng</h4>
                     </div>
                     <div class="card-body">
                         <div class="d-flex justify-content-between mb-3 pt-1">
-                            <h6 class="font-weight-medium">Subtotal</h6>
+                            <h6 class="font-weight-medium">Tổng giá trị đơn hàng</h6>
                             <h6 class="font-weight-medium"><?php echo number_format($total)."VNĐ" ?></h6>
                         </div>
                         <div class="d-flex justify-content-between">
@@ -256,10 +256,10 @@ session_start();
                     </div>
                     <div class="card-footer border-secondary bg-transparent">
                         <div class="d-flex justify-content-between mt-2">
-                            <h5 class="font-weight-bold">Total</h5>
+                            <h5 class="font-weight-bold">Tổng cộng</h5>
                             <h5 class="font-weight-bold"><?php echo number_format($total+30000)."VNĐ" ?></h5>
                         </div>  
-                        <input type="submit" name="submit"  class="btn btn-block btn-primary my-3 py-3" value="Proceed To Checkout"></input>
+                        <input type="submit" name="submit"  class="btn btn-block btn-primary my-3 py-3" value="Tiến hành thanh toán"></input>
                     </div>
                 </div>
             </div>
