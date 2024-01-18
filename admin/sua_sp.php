@@ -4,7 +4,8 @@
         session_start();
     ?>
 <head>
-  <title>Thêm sản phẩm | Quản trị Admin</title>
+  <title>Quản trị Admin</title>
+  <link rel="icon" href="../img/BR.png" type="image/jpeg">
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -94,11 +95,11 @@
                 <input class="form-control" type="text" name="name" value="<?php echo $row['name']; ?>" >
               </div>
               <input type="hidden" name="img_old" value="<?php echo $row['img']; ?>"> 
-
+<!-- 
               <div class="form-group  col-md-3">
                 <label class="control-label">Số lượng</label>
                 <input class="form-control" type="text" name="quantity"  value="<?php echo $row['quantity']; ?>">
-              </div>
+              </div> -->
              
               
               <div class="form-group col-md-3">

@@ -15,7 +15,8 @@ if (!isset($_SESSION['email'])) {
     <meta content="Free HTML Templates" name="description">
 
     <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
+
+    <link rel="icon" href="img/BR.png" type="image/jpeg">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -139,7 +140,7 @@ if (!isset($_SESSION['email'])) {
                          
              
                         if (empty($_SESSION['cart'])) {
-                            echo "Your cart is empty."; // Or whatever message you want
+                            echo "Giỏ hàng bạn trống"; // Or whatever message you want
                         } else {
                             // $item = array();
                             // var_dump($_POST);
@@ -155,7 +156,21 @@ if (!isset($_SESSION['email'])) {
                                         $conn = mysqli_connect("localhost:3307", "root", "", "banhang");
                                         $sql = "SELECT * from sanpham where id_sanpham = $id_sanpham";
                                         $kq = mysqli_query($conn, $sql);
-                                        while ($row = mysqli_fetch_array($kq)) {               
+                                        while ($row = mysqli_fetch_array($kq)) {  
+                                            
+                                        $quantitySql = "SELECT quantity
+                                        FROM so_luong
+                                        WHERE id_sp = '$id_sanpham'AND size = '$size';";  
+                                        $kqQuantity = mysqli_query($conn, $quantitySql);
+                                        $quantity = mysqli_fetch_array($kqQuantity, MYSQLI_ASSOC)['quantity'];
+                                            if ($value > $quantity) {
+                                              echo "<script>alert('Sản phẩm này đã hết hàng. Vui lòng chọn lại số lượng qua trang cart.');</script>";
+                                              echo "<script>
+                                              setTimeout(function() {
+                                                 window.location.href = 'cart.php';
+                                              }, 2000);
+                                              </script>";
+                                            }             
                             ?>
                         <tbody class="align-middle">
                             <tr>

@@ -11,7 +11,8 @@ session_start();
     <meta content="Free HTML Templates" name="description">
 
     <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
+
+    <link rel="icon" href="img/BR.png" type="image/jpeg">
     <script src="https://kit.fontawesome.com/54f0cb7e4a.js" crossorigin="anonymous"></script>
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -92,7 +93,7 @@ session_start();
         <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
             <h1 class="font-weight-semi-bold text-uppercase mb-3">Giỏ Hàng của bạn</h1>
             <div class="d-inline-flex">
-                <p class="m-0"><a href="">Trang chur</a></p>
+                <p class="m-0"><a href="">Trang chủ</a></p>
                 <p class="m-0 px-2">-</p>
                 <p class="m-0">Giỏ hàng</p>
             </div>
@@ -115,20 +116,23 @@ session_start();
                                 <th>Số lượng</th>
                                 <th>Size</th>
                                 <th>Tổng cộng</th>
-
                                 <th>Remove</th>
                             </tr>
                         </thead>
                     <?php
+                    $total = 0;
+                        // var_dump($_SESSION['cart']);
                       if (empty($_SESSION['cart'])) {
                           echo "Your cart is empty."; // Or whatever message you want
                       } else {
+                      
                           $item = array();
-                          $total = 0;
+                          
                           foreach ($_SESSION['cart'] as $id_sanpham => $size) {
                               $item[] = $id_sanpham;
-                      
+                            
                               foreach ($size as $size => $value) {
+                             
                                 // In ra thông tin từ giỏ hàng
                                 // echo "ID: $id_sanpham, Size: $size, Quality: $value<br>";
                                 // Lặp qua số lần tương ứng với Quality để in ra thông tin từ SQL
@@ -138,6 +142,29 @@ session_start();
                                     $sql = "SELECT * from sanpham where id_sanpham = $id_sanpham";
                                     $kq = mysqli_query($conn, $sql);
                                     while ($row = mysqli_fetch_array($kq)) {
+
+                                        $quantitySql = "SELECT quantity
+                                        FROM so_luong
+                                        WHERE id_sp = '$id_sanpham'AND size = '$size';";  
+                                        $kqQuantity = mysqli_query($conn, $quantitySql);
+                                        $quantity = mysqli_fetch_array($kqQuantity, MYSQLI_ASSOC)['quantity'];
+                                        if ($value > $quantity) {
+                                            echo "<script>
+                                                alert('Sản phẩm này đã hết hàng. Vui lòng chọn lại số lượng qua trang cart.');
+                                                setTimeout(function() {
+                                                    window.location.href = 'cart.php?decrease_1={$row['id_sanpham']}&size1={$size}';
+                                                });
+                                            </script>";
+                                            if(isset($_GET['decrease_1'])){   
+                                                $index=$_GET['decrease_1'];
+                                                $size1 = isset($_GET['size1']) ? $_GET['size1'] : '';
+                                                if($_SESSION['cart'][$index][$size1]>=1){
+                                                    $_SESSION['cart'][$index][$size1]= $quantity;
+                                                }
+                                                echo "<script>window.location='cart.php';</script>";
+                                                exit; 
+                                            }
+                                        }
                                         
                                     
                         ?>
@@ -161,7 +188,20 @@ session_start();
                                     
                                     </a>
                                 </div> 
-                                <?php if(isset($_GET['increase'])){   
+                                <?php       
+                                            if(isset($_GET['delete'])){   
+                                                $index=$_GET['delete'];
+                                                $size1 = isset($_GET['size1']) ? $_GET['size1'] : '';
+                                                unset($_SESSION['cart'][$index][$size1]);
+                                                $_SESSION['cart'] = array_filter($_SESSION['cart']);
+                                                    // Kiểm tra xem toàn bộ mảng 'cart' có trống không và hủy bỏ nếu có
+                                                    if (empty($_SESSION['cart'])) {
+                                                        unset($_SESSION['cart']);
+                                                    }
+                                                echo "<script>window.location='cart.php';</script>";
+                                                exit; 
+                                                }
+                                            if(isset($_GET['increase'])){   
                                             $index=$_GET['increase'];
                                             $size1 = isset($_GET['size1']) ? $_GET['size1'] : '';
                                             if($_SESSION['cart'][$index][$size1]>=1){
@@ -179,37 +219,31 @@ session_start();
                                                 echo "<script>window.location='cart.php';</script>";
                                                 exit; 
                                             }
+                                          
                                             ?>
                             </td>
+
+                            <!-- xử lý chọn size -->
                             <td class="align-middle">
-                          
-                            <select class="form-select " name="sizeid_<?php echo $id_sanpham;?>_<?php echo $size;?>" aria-label="Default select example">
-                                <option class="align-middle w-100" selected> <?php echo'Size '. $size ?></option>
-                                
+                            <select class="form-select " name="sizeid_<?php echo $id_sanpham;?>_<?php echo $size;?>" aria-label="Default select example" required>
+                                <option class="align-middle w-100" value="<?php echo ($size == 'Chưa có') ? '' : $size; ?>" selected> <?php echo'Size '. $size ?></option>
                                     <?php 
                                      if ($conn->connect_error) {
                                         die("Connection failed: " . $conn->connect_error);
                                     }
-            
-                                    $productId = $row['id_dm']; // ID của sản phẩm bạn muốn lấy dữ liệu
-            
-                                    $sql1 = "SELECT size FROM danhmuc WHERE id_dm = $productId";
-                                    $result = $conn->query($sql1);
-            
-                                    if ($result->num_rows > 0) {
-                                        $row1 = $result->fetch_assoc();
-                                        $data = $row1['size'];
-                                    
-                                        // Tách dữ liệu thành mảng
-                                        $dataArray = explode(', ', $data);
-                                        foreach ($dataArray as $value1) {
+                                    $sql1 = "SELECT size FROM so_luong WHERE id_sp = $id_sanpham AND quantity > 0";
+                                    $result1 = $conn->query($sql1);
+
+                                    if ($result1->num_rows > 0) {
+                                        while ($row1 = mysqli_fetch_assoc($result1)){
                                  ?>
-                                 <option class="align-middle w-100" value="<?php echo $value1 ?>">Size <?php echo $value1 ?></option>
+                                 <option class="align-middle w-100" value="<?php echo $row1['size'] ?>">Size <?php echo $row1['size'] ?></option>
                                  <?php }} ?>
                                 </select> </td>
+                                 <!-- xử lý chọn size -->
+
                             <td class="align-middle"><?php echo number_format($_SESSION['cart'][$row['id_sanpham']][$size]*$row['price'])?> VNĐ</td>
-                            
-                            <td class="align-middle"><i class=" btn-sm btn-primary fa fa-times"> </i></td>
+                            <td class="align-middle"> <a href="cart.php?delete=<?php echo $row['id_sanpham'];?>&size1=<?php echo $size; ?>"> <i class=" btn-sm btn-primary fa fa-times"> </i> </a></td>
                         </tr>   
                         <?php 
                    
@@ -261,6 +295,7 @@ session_start();
                         </div>  
                         <input type="submit" name="submit"  class="btn btn-block btn-primary my-3 py-3" value="Tiến hành thanh toán"></input>
                     </div>
+                    <a href="shop.php"class="btn btn-block btn-primary my-3 py-3" > Quay lại mua hàng  </a>
                 </div>
             </div>
         </div>

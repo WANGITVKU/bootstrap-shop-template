@@ -12,7 +12,8 @@
     <meta content="Free HTML Templates" name="description">
 
     <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
+
+    <link rel="icon" href="img/BR.png" type="image/jpeg">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -112,6 +113,12 @@
                 $row = mysqli_fetch_array($kq);
                 $sql6 = "SELECT COUNT(*) as comment_count FROM binhluan WHERE id_sanpham = $id";
                 $result6 = $conn->query($sql6);
+                $quantitySql = "SELECT quantity
+                FROM sanpham
+                WHERE id_sanpham = '$id';";  
+                $kqQuantity = mysqli_query($conn, $quantitySql);
+                $quantity = mysqli_fetch_array($kqQuantity, MYSQLI_ASSOC)['quantity'];
+               
                 if ($result6->num_rows > 0) {
                     // Lấy dữ liệu từ kết quả
                     $row6 = $result6->fetch_assoc();
@@ -201,10 +208,13 @@
                         } else {
                             echo "Không tìm thấy dữ liệu.";
                         }
+                       
                         ?>
 
                 </div>
-                  
+                <div class="d-flex mb-3"> 
+                    Số lượng sản phẩm còn lại : <?php echo $quantity ?>
+                </div>
                
               
                     <!--                                                          ---->

@@ -45,7 +45,7 @@ if (isset($_POST['sortValue']) && isset($_POST['additionalData'])) {
     }
 
     // Câu truy vấn SQL với mệnh đề ORDER BY
-    $sql = "SELECT * FROM sanpham $orderBy";
+    $sql = "SELECT * FROM sanpham where quantity > 0 $orderBy";
 
     // Thực hiện câu truy vấn
     $result = $conn->query($sql);

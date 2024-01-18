@@ -1,18 +1,18 @@
 <?php
 /* Attempt MySQL server connection. Assuming you are running MySQL
 server with default setting (user 'root' with no password) */
-$link = mysqli_connect("localhost:3307", "root", "", "banhang");
+$conn = mysqli_connect("localhost:3307", "root", "", "banhang");
  
 // Check connection
-if($link === false){
+if($conn === false){
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
  
 if(isset($_REQUEST["term"])){
     // Prepare a select statement
-    $sql = "SELECT * FROM sanpham WHERE name LIKE ?;";
+    $sql = "SELECT * FROM sanpham WHERE name LIKE ? AND quantity > 0 ; ";
     
-    if($stmt = mysqli_prepare($link, $sql)){
+    if($stmt = mysqli_prepare($conn, $sql)){
         // Bind variables to the prepared statement as parameters
         mysqli_stmt_bind_param($stmt, "s", $param_term);
         
@@ -44,7 +44,10 @@ if(isset($_REQUEST["term"])){
                                     <div class="card-footer d-flex justify-content-between bg-light border">
                                             
                                         <a href="detail.php?idsp=<?php echo $row['id_sanpham']?>" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>Xem chi tiết</a>
-                                        <a href="addcart.php?idsp=<?php echo $row['id_sanpham']?>&iddm=<?php echo $row['id_dm']?>&id_brand=<?php echo $row['id_brand']?>" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Thêm vào giỏ hành</a>
+                                        <a data-toggle="modal" data-target="#chonsize<?php echo $row['id_sanpham']?>" class="btn btn-sm text-dark p-0">
+                                    <i class="fas fa-shopping-cart text-primary mr-1"></i>Thêm vào giỏ hàng
+                                </a>
+                                <?php include "../html/chonsize.php" ;?>
                                     </div>
                                 </div>
                             </div>
@@ -54,7 +57,7 @@ if(isset($_REQUEST["term"])){
                 echo "<a>No matches found</a>";
             }
         } else{
-            echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+            echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
         }
     }
      
@@ -65,5 +68,5 @@ else
 echo 'ko tim dc tai lieu;';
  
 // close connection
-mysqli_close($link);
+mysqli_close($conn);
 ?>

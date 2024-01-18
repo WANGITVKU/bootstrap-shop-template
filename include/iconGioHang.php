@@ -12,8 +12,6 @@
 
                 if(isset($_SESSION['cart']))
                 foreach ($_SESSION['cart'] as $id_sanpham => $size) {
-                    $item[] = $id_sanpham;
-            
                     foreach ($size as $size => $value) {
                           $soSanPhamTrongGioHang++;
                         if(isset($value)){

@@ -28,7 +28,7 @@
               if (isset($_POST["form1_submit"])) {
                       $id_sanpham= $_POST['id_sanpham'];
                       $name = $_POST['name'];
-                      $quantity = $_POST['quantity'];
+               
                       $price = $_POST['price'];
                       $id_dmsp=$_POST['id_dmsp'];
                       $mo_ta=$_POST['mo_ta'];
@@ -49,16 +49,40 @@
                          // Now, you can store the file path ($uploadFile) in your database
                               // Assuming you have a database connection already established
                               $conn1 = mysqli_connect("localhost:3307", "root", "", "banhang");
-                              $sql3 = "INSERT INTO sanpham(id_sanpham,name, price, quantity, id_dm,id_brand, img , mo_ta) 
-                                      VALUES ( $id_sanpham ,'$name', '$price', '$quantity', $id_dmsp ,$id_brand, '$relativePath','$mo_ta')";
+                              $sql3 = "INSERT INTO sanpham(id_sanpham,name, price, id_dm,id_brand, img , mo_ta) 
+                                      VALUES ( $id_sanpham ,'$name', '$price', $id_dmsp ,$id_brand, '$relativePath','$mo_ta')";
                               $kq3 = mysqli_query($conn1, $sql3);
                   
                               if ($kq3) {
+                             
+                                $sql1 = "SELECT size FROM danhmuc WHERE id_dm = $id_dmsp";
+                                $result = $conn1->query($sql1);
+        
+                                if ($result->num_rows > 0) {
+                                  $row1 = $result->fetch_assoc();
+                                  $data = $row1['size'];
+                              
+                                  // Tách dữ liệu thành mảng
+                                  $dataArray = explode(', ', $data);
+                                  foreach ($dataArray as $value) {  
+                                    
+                                     $sql2 = "INSERT INTO so_luong ( id_sp ,size) VALUES ($id_sanpham ,'$value')";
+                                     $result2 = $conn1->query($sql2);     
+                              // Kiểm tra và xử lý kết quả thêm dữ liệu
+                              if ($result2) {
+                                echo "Thêm dữ liệu thành công cho size: $value";
+                            } else {
+                                echo "Lỗi khi thêm dữ liệu cho size: $value - " . $conn->error;
+                            }
+                        }
+                            } else {
+                                echo "Không có dữ liệu size từ danh mục có id_dm = $id_dmsp";
+                            }
                                 echo "
                           <div class='alert alert-success'> thêm sản phẩm thành công </div> ";
                           echo "<script>
                           setTimeout(function() {
-                              window.location.href = '../form-add-san-pham.php';
+                              window.location.href = '../soluong_sp.php?id_sp=$id_sanpham >;
                           }, 2000);
                           </script>";
                               } 

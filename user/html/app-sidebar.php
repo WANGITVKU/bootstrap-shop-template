@@ -1,4 +1,20 @@
+<?php 
 
+ $email = $_SESSION["email"];
+ $conn = mysqli_connect("localhost:3307", "root", "", "banhang");
+ $sql = "SELECT * from chitiet_user where email = '$email' ";
+ $kq = mysqli_query($conn, $sql);
+ $row = mysqli_fetch_array($kq);
+ $img="";
+ if (empty($row['img'])) {
+  // Nếu 'img' trống rỗng hoặc không tồn tại giá trị, thực hiện hành động khác
+  $img="img/avatar_trang.jpg";
+  // Hoặc có thể hiển thị một ảnh mặc định từ máy tính
+  // echo '<img src="duong_dan_den_anh_mac_dinh.jpg" alt="Ảnh Mặc Định">';
+} else {
+  // Nếu 'img' có giá trị, hiển thị giá trị đó
+  $img=  $row['img'];
+}?>
 <header class="app-header">
     <!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar"
       aria-label="Hide Sidebar"></a>
@@ -7,14 +23,14 @@
 
 
       <!-- User Menu-->
-      <li><a class="app-nav__item" href="../dangnhap/logout.php"><i class='bx bx-log-out bx-rotate-180'></i> </a>
+      <li><a class="app-nav__item" href="../shop.php"><i class='bx bx-log-out bx-rotate-180'></i> </a>
 
       </li>
     </ul>
   </header>
 <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
 <aside class="app-sidebar">
-  <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="../<?php echo $_SESSION['img_user'] ?>" width="50px"
+  <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="../<?php echo $img ?>" width="50px"
       alt="User Image">
     <div>
       <p class="app-sidebar__user-name"><b></b></p>

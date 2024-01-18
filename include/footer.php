@@ -26,10 +26,10 @@
         </div>
         <div class="footer-items">
             
-            <li><a href="">Liên hệ</a></li>
+            <li><a href="https://www.facebook.com/NHQ2004">Liên hệ</a></li>
             <li><a href="">Tuyển dụng</a></li>
             <li><a href="">Giới thiệu</a></li>
-            <li><a href=""><i class="fab fa-facebook-f"></i></a><a href=""><i class="fab fa-instagram"></i></a></li>
+            <li><a href="https://www.facebook.com/NHQ2004"><i class="fab fa-facebook-f"></i></a><a href=""><i class="fab fa-instagram"></i></a></li>
         </div>
         
         <div class="footer-bottom">

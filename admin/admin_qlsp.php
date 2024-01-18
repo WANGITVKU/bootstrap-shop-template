@@ -5,7 +5,8 @@
 <html lang="en">
 
     <head>
-        <title>Danh sách nhân viên | Quản trị Admin</title>
+        <title> Quản trị Admin</title>
+        <link rel="icon" href="../img/BR.png" type="image/jpeg">
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -184,15 +185,41 @@
                                
                                          
                                     while ($row= mysqli_fetch_array($kq)){
+                                        $id_sanpham=$row['id_sanpham'] ;
+                                        
                                         echo '<tr>';?>
                                         <td width="10"><input type="checkbox" name="check1" value="1"></td>
                                          <td><?php echo $row['id_sanpham']   ?></td>
-                                         <td><?php  echo $row['name']   ?></td>
-                                         <td style="width: 125px; height: 125px;">
+                                         <td class="align-middle" ><?php  echo $row['name']   ?></td>
+                                         <td class="align-middle" style="width: 125px; height: 125px;">
                                                 <img src="../<?php echo $row['img'] ?>" alt="" style="max-width: 100%; max-height: 100%;">
                                             </td>
-                                          <td> <?php echo $row['quantity']   ?></td>
-                                          <td><span class="badge bg-success">Còn hàng</span></td>
+
+
+                                            <!-- Xử lý số lượng -->
+                                          <td class="align-middle"> <?php
+                                                  $sql1 = "SELECT SUM(quantity) AS total_quantity
+                                                  FROM so_luong
+                                                  WHERE id_sp = $id_sanpham";
+                                                  $kq1 = mysqli_query($conn, $sql1);
+                                              if ($kq1) {
+                                                  $row1 = mysqli_fetch_array($kq1);
+                                                  $total_quantity = $row1['total_quantity'];
+                                           
+                                                  $sql2 = "UPDATE sanpham SET quantity = $total_quantity WHERE id_sanpham = $id_sanpham";
+                                                  $kq2 = mysqli_query($conn, $sql2); 
+                                                  if ($kq2) {
+                                                    echo $total_quantity;
+                                                  } else {
+                                                      echo "Lỗi khi cập nhật dữ liệu (UPDATE): " . mysqli_error($conn);
+                                                  }
+                                              } else {
+                                                  echo "Lỗi khi truy vấn dữ liệu (SELECT): " . mysqli_error($conn);
+                                              }?></td>
+                                           <!-- Xử lý số lượng -->
+                                          
+
+                                          <td class="align-middle"><span class="badge bg-success">Còn hàng </span>  <br><a class="details-link" href="soluong_sp.php?id_sp=<?php echo $row['id_sanpham'] ?>">Xem Chi Tiết </a></td>
                                           <td><?php echo $row['price']   ?> đ</td>
                                          <td><?php
                                                   $id_dm=$row['id_dm'] ;                                              

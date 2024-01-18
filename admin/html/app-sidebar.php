@@ -13,7 +13,7 @@
   </header>
 <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
 <aside class="app-sidebar">
-  <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="../img/278850312_5229427790478147_4668239490951005048_n.jpg" width="50px"
+  <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="" width="50px"
       alt="User Image">
     <div>
       <p class="app-sidebar__user-name"><b>ADMIN</b></p>
@@ -23,11 +23,11 @@
   <hr>
   <ul class="app-menu">
  
-    <li><a class="app-menu__item active" href="#"><i class='app-menu__icon bx bx-user-voice'></i><span
-          class="app-menu__label">Quản lý khách hàng</span></a></li>
-    <li><a class="app-menu__item " href="admin_qlsp.php"><i
+    
+    <li><a class="app-menu__item active " href="admin_qlsp.php"><i
           class='app-menu__icon bx bx-purchase-tag-alt'></i><span class="app-menu__label">Quản lý sản phẩm</span></a>
     </li>
+   
     <li><a class="app-menu__item" href="admin_qldh.php"><i class='app-menu__icon bx bx-task'></i><span
           class="app-menu__label">Quản lý đơn hàng</span></a></li>
     <li><a class="app-menu__item" href="admin_qldm.php"><i class='app-menu__icon bx bx-task'></i><span
@@ -36,6 +36,7 @@
          class="app-menu__label">Quản lý bình luận</span></a></li>
     <li><a class="app-menu__item" href="admin_qlbrand.php"><i class='app-menu__icon bx bx-task'></i><span
           class="app-menu__label">Quản lý thương hiệu</span></a></li>
+     
   
     <li><a class="app-menu__item" href="#"><i class='app-menu__icon bx bx-cog'></i><span class="app-menu__label">Cài
           đặt hệ thống</span></a></li>

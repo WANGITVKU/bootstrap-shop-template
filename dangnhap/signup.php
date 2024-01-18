@@ -31,7 +31,7 @@
 	<div class="content-agile2">
 		<form action="#" method="post">
 			<div class="form-control w3layouts"> 
-				<input type="text"  id="firstname" name="fullname" placeholder="Họ và tên title="Please enter your First Name" required="">
+				<input type="text"  id="firstname" name="fullname" placeholder="Họ và tên" title="Please enter your First Name "required="">
 			</div>
 
 			<div class="form-control w3layouts">	

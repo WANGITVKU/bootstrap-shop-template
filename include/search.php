@@ -10,7 +10,7 @@ if($link === false){
  
 if(isset($_REQUEST["term"])){
     // Prepare a select statement
-    $sql = "SELECT * FROM sanpham WHERE name LIKE ? LIMIT 5;";
+    $sql = "SELECT * FROM sanpham WHERE name LIKE ? AND quantity > 0 LIMIT 5  ;";
     
     if($stmt = mysqli_prepare($link, $sql)){
         // Bind variables to the prepared statement as parameters

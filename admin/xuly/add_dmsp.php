@@ -22,6 +22,7 @@
                                     VALUES ('$tendm','$uploadFile', '$size')";
                             $kq = mysqli_query($con, $sql);
                             if ($kq) {
+                        
                                 echo "
                         <div class='alert alert-success'> thêm danh mục thành công </div> ";
                         echo "<script>

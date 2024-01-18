@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+    <head>
         <title> Quản trị Admin</title>
         <link rel="icon" href="../img/BR.png" type="image/jpeg">
         <meta charset="utf-8">
@@ -53,11 +53,11 @@
             đặt hệ thống</span></a></li>
     </ul>
   </aside> -->
-  <?php include "html/app-sidebar.php" ?>
+  <?php include "html/app-sidebar.php" ?> 
     <main class="app-content">
         <div class="app-title">
             <ul class="app-breadcrumb breadcrumb side">
-                <li class="breadcrumb-item active"><a href="#"><b>Danh sách danh mục sản phẩm</b></a></li>
+                <li class="breadcrumb-item active"><a href="#"><b>Quản Lý Số Lượng</b></a></li>
             </ul>
             <div id="clock"></div>
         </div>
@@ -101,45 +101,57 @@
                             <thead>
                                 <tr>
                                     <th width="10"><input type="checkbox" id="all"></th>
-                                    <th>Mã danh mục</th>
-                                    <th>Tên danh mục</th>
-                                    <th>Size</th>
-                                    <th>Ảnh sản phẩm</th>
-                                    <th>Chức năng</th>
+                                    <th class="align-middle text-center" >ID</th>
+                                    <th class="align-middle text-center">Tên sản phẩm</th>
+                                    <th class="align-middle text-center">Ảnh</th>
+                                    <th class="align-middle text-center">Size</th>
+                                    <th class="align-middle text-center">Số lượng</th>
                                 </tr>
                             </thead>
-                            <tbody class="align-middle">
+                            <tbody>
                                 
                                 <?php
+                                    $total=0;          
+                                    $id_sp=$_GET['id_sp'];
                                     $conn = mysqli_connect("localhost:3307","root","","banhang");
-                                    $sql="SELECT * from danhmuc";
-                                  
+                                    $sql="SELECT * from so_luong where id_sp =".$id_sp;
+                                
+                                    $coutn=0;
                                     $kq= mysqli_query($conn,$sql);
-                               
-                                         
-                                    while ($row= mysqli_fetch_array($kq)){
+                                    while ($row= mysqli_fetch_array($kq)){           
+                                      $sql1 = "SELECT * FROM sanpham WHERE id_sanpham = " . $row['id_sp'];
+                                      $kq1 = mysqli_query($conn, $sql1);
+                                      $row1 = mysqli_fetch_array($kq1);
+                                   
                                         echo '<tr>';?>
-                                        <td class="align-middle" width="10"><input type="checkbox" name="check1" value="1"></td>
-                                         <td class="align-middle"><?php echo $row['id_dm']   ?> <br></td>
-                                         <td class="align-middle"><?php  echo $row['tendanhmuc']   ?></td>
-                                      
-                                          <td class="align-middle" > <?php echo $row['size']   ?></td>          
-                                          <td style="width: 125px; height: 125px;">
-                                                <img src="../<?php echo $row['img'] ?>" alt="" style="max-width: 100%; max-height: 100%;">
+                                        <td width="10"><input type="checkbox" name="check1" value="1"></td>
+                                         <td  class="align-middle text-center"><?php echo (int)++$coutn   ?> </td>
+                                         <td  class="align-middle text-center"><?php  echo $row1['name']   ?></td>
+                                         <td class="align-middle text-center" style="width: 100px; height: 50px;">
+                                                <img src="../<?php echo $row1['img'] ?>" alt="" style="width: 100%; height:auto;">
+                                          </td>
+                                          <td  class="align-middle text-center"><?php echo $row['size']   ?> </td>
+                        
+                                         
+                                          <td id="id_sp<?php echo $row['id_quantity']; ?>" class="align-middle text-center" onclick="editQuantity(this, <?php echo $row['id_quantity']; ?>)">
+                                                <?php echo $row['quantity']; ?>
                                             </td>
-                                            <td><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
-                                              data-id_dm="<?php echo $row['id_dm'] ?>"
-                                              onclick="myFunction('<?php echo $row['id_dm'] ?>')">
-                                              <i class="fas fa-trash-alt"></i> 
-                                                  </button>
-                                        <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" onclick="window.location.href='sua_brand.php?id_dm=<?php echo $row['id_dm']; ?>'"><i class="fas fa-edit"></i>
-                                          </button>
+                                      
                                         
+                                    <td class="align-middle text-center"><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
+                                            onclick="myFunction(this)"><i class="fas fa-trash-alt"></i> 
+                                        </button>
+                                        <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp" data-toggle="modal"
+                                       data-target="#ModalUP"><i class="fas fa-edit"></i></button>
+                                       
                                     </td>
                                     <?php    
                                     }
                                     ?>                              
-                              
+                                 <tr>
+
+                                    <td></td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -147,6 +159,7 @@
             </div>
         </div>
     </main>
+
 <!--
   MODAL
 -->
@@ -221,7 +234,8 @@ data-keyboard="false">
 <!--
 MODAL
 -->
-    <script src="js_ajax/xulydh.js"></script>
+
+    <!-- Essential javascripts for application to work-->
     <script src="../js/js/jquery-3.2.1.min.js"></script>
     <script src="../js/js/popper.min.js"></script>
     <script src="../js/js/bootstrap.min.js"></script>
@@ -235,7 +249,6 @@ MODAL
     <!-- Data table plugin-->
     <script type="text/javascript" src="../js/js/plugins/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="../js/js/plugins/dataTables.bootstrap.min.js"></script>
-    <!-- Essential javascripts for application to work-->
     <script type="text/javascript">
         $('#sampleTable').DataTable();
         //Thời Gian
@@ -286,36 +299,18 @@ MODAL
         }
         jQuery(function () {
             jQuery(".trash").click(function () {
-                var id_dm = $(this).data("id_dm"); // Lấy giá trị id_sanpham từ thuộc tính data
-
                 swal({
                     title: "Cảnh báo",
                     text: "Bạn có chắc chắn là muốn xóa sản phẩm này?",
                     buttons: ["Hủy bỏ", "Đồng ý"],
                 })
-                .then((willDelete) => {
-                    if (willDelete) {
-                        // Sử dụng jQuery AJAX để gửi dữ liệu đến trang xử lý
-                        $.ajax({
-                            type: "POST",
-                            url: "xuly/xuly_xoa.php",
-                            data: { id_dm:id_dm },
-                            success: function (response) {
-                                // Xử lý phản hồi từ máy chủ
-                                swal("Đã xóa thành công.!", {
-                                    icon: "success",
-                                }).then(function (response) {
-                                    // Tải lại trang
-                                    location.reload();
-                                });
-                            },
-                            error: function (error) {
-                                // Xử lý lỗi
-                                console.error("Error:", error);
-                            }
-                        });
-                    }
-                });
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            swal("Đã xóa thành công.!", {
+
+                            });
+                        }
+                    });
             });
         });
         oTable = $('#sampleTable').dataTable();
@@ -324,6 +319,45 @@ MODAL
             e.stopImmediatePropagation();
         });
     </script>
+<script>
+function editQuantity(cell, itemId) {
+    // Lấy giá trị hiện tại của ô td
+    var currentValue = cell.innerText;
+
+    // Tạo một input để chỉnh sửa
+    var inputElement = document.createElement("input");
+    inputElement.type = "text";
+    inputElement.value = currentValue;
+
+    // Gán sự kiện cho input để xử lý khi người dùng nhập xong
+    inputElement.onblur = function() {
+        var newValue = inputElement.value;
+        // Gửi dữ liệu mới đi sử dụng AJAX
+        updateQuantity(itemId, newValue);
+        // Chuyển lại thành text khi không còn focus
+        cell.innerText = newValue;
+    };
+
+    // Thay thế ô td bằng input
+    cell.innerHTML = "";
+    cell.appendChild(inputElement);
+
+    // Focus vào input để bắt đầu chỉnh sửa
+    inputElement.focus();
+}
+function updateQuantity(itemId, newValue) {
+    // Gửi dữ liệu mới đi sử dụng AJAX
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            // Xử lý kết quả từ server nếu cần
+            console.log(this.responseText);
+        }
+    };
+    xmlhttp.open("GET", "xuly/update_quantity.php?item_id=" + itemId + "&new_value=" + newValue, true);
+    xmlhttp.send();
+}
+</script>
 </body>
 
 </html>

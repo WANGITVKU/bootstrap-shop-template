@@ -23,7 +23,7 @@
                       $img_old =$_POST['img_old'];
                       $id = $_POST['idsp'];
                       $name = $_POST['name'];
-                      $quantity = $_POST['quantity'];
+                      // $quantity = $_POST['quantity'];
                       $price = $_POST['price'];
                       $id_dmsp=$_POST['id_dmsp'];
                       $mo_ta=$_POST['mo_ta'];
@@ -43,7 +43,7 @@
                                         SET 
                                         `name` = '$name', 
                                         `price` = '$price', 
-                                        `quantity` = '$quantity', 
+                                        -- `quantity` = '$quantity', 
                                         `id_dm` = $id_dmsp, 
                                         `id_brand` = $id_brand, 
                                         `img` = '$relativePath', 

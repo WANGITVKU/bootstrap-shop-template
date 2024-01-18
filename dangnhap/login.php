@@ -7,6 +7,9 @@ session_start();
   <head>
     <meta charset="UTF-8">
     <title> Đăng Nhập </title>
+
+
+<link rel="icon" href="../img/BR.png" type="image/jpeg">
     <link rel="stylesheet" href="../css/dangnhap.css">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <!-- Fontawesome CDN Link -->
@@ -66,7 +69,7 @@ session_start();
             $hostName = "localhost:3307";
             $dbUser = "root";
             $dbPassword = "";
-            $dbName = "login_register";
+            $dbName = "banhang";
             $conn = mysqli_connect($hostName, $dbUser, $dbPassword, $dbName);
              $sql1 = "SELECT * FROM admin WHERE email = '$email'";
              $result1 = mysqli_query($conn, $sql1);

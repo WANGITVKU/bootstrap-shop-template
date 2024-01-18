@@ -21,6 +21,7 @@ $result = mysqli_query($conn, $sql);
 $sql1 = "SELECT * from chitiet_user where email = '$email' ";
 $kq1 = mysqli_query($conn, $sql1);
 $row1 = mysqli_fetch_array($kq1);
+
 ?>
 <div class="col-lg-8"> 
                 <div class="mb-4">
@@ -53,7 +54,7 @@ $row1 = mysqli_fetch_array($kq1);
                             while ($row = mysqli_fetch_assoc($result)) {
                                 
                             ?>  
-                                <option value="<?php echo $row['province_id'] ?>"><?php echo $row1['name'] ?></option>
+                                <option value="<?php echo $row['province_id'] ?>"><?php echo $row['name'] ?></option>
                                  
                             <?php
                             

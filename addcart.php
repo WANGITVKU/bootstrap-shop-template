@@ -9,19 +9,41 @@
 ?> -->
 <?php
 session_start();
-$id=$_GET['idsp'];
-$size = 'chuaco';
+
+if (isset($_POST["id_sp"]) && isset($_POST["size"])) {
+$id=$_POST["id_sp"];
+$size = $_POST["size"];
 if(isset($_SESSION['cart'][$id][$size]))
 {
 $qty = $_SESSION['cart'][$id][$size] + 1;
 }
 else
 { 
-      $qty=1;
-  
+    $qty=1;
 }
-$_SESSION['cart'][$id][$size]=$qty;
- if (isset($_GET['id_brand']) || isset($_GET['iddm'])) {
+        $_SESSION['cart'][$id][$size]=$qty;
+        $conn = mysqli_connect("localhost:3307", "root", "", "banhang");
+        $quantitySql = "SELECT quantity
+        FROM so_luong
+        WHERE id_sp = '$id'AND size = '$size';";  
+        $kqQuantity = mysqli_query($conn, $quantitySql);
+        $quantity = mysqli_fetch_array($kqQuantity, MYSQLI_ASSOC)['quantity'];
+        if ($qty > $quantity) {
+          
+                
+                if($_SESSION['cart'][$id][$size]>=1){
+                    $_SESSION['cart'][$id][$size]= $quantity;
+             
+            echo "<script>
+                alert('Sản phẩm này đã hết hàng. Vui lòng chọn lại số lượng qua trang cart.');
+                
+            </script>";
+            echo "<script>window.location='shop.php';</script>";
+         
+            exit; 
+          }
+        }
+if (isset($_GET['id_brand']) || isset($_GET['iddm'])) {
     // Ít nhất một trong hai tham số tồn tại
 
     if (isset($_GET['id_brand'])) {
@@ -40,5 +62,5 @@ $_SESSION['cart'][$id][$size]=$qty;
     echo "Không có tham số nào được truyền qua.";
 }
 
-exit();
+exit();}
 ?>

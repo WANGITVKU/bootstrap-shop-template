@@ -20,7 +20,7 @@ function fetchDataUsingMySQLi() {
             $id_brand = $_GET['id_brand'];
             // Bây giờ bạn có thể sử dụng $id_brand theo nhu cầu của bạn.
                 // Thực hiện truy vấn
-                $sql = "SELECT id_sanpham, id_brand, id_dm, name, img, price, quantity FROM sanpham WHERE id_brand='$id_brand' ";
+                $sql = "SELECT id_sanpham, id_brand, id_dm, name, img, price, quantity FROM sanpham WHERE id_brand='$id_brand' AND quantity > 1 ";
                 $result = $conn->query($sql);
 
                 // Kiểm tra và xử lý kết quả
@@ -41,7 +41,7 @@ function fetchDataUsingMySQLi() {
             $id_dm = $_GET['iddm'];
             // Bây giờ bạn có thể sử dụng $id_dm theo nhu cầu của bạn.
                 // Thực hiện truy vấn
-            $sql = "SELECT id_sanpham, id_brand, id_dm, name, img, price, quantity FROM sanpham WHERE id_dm='$id_dm'";
+            $sql = "SELECT id_sanpham, id_brand, id_dm, name, img, price, quantity FROM sanpham WHERE id_dm='$id_dm' AND quantity > 1 ";
             $result = $conn->query($sql);
 
             // Kiểm tra và xử lý kết quả
