@@ -14,7 +14,7 @@
             // BƯỚC 3: TÌM LIMIT VÀ CURRENT_PAGE
             $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
             $limit = 5;
-            // BƯỚC 4: TÍNH TOÁN TOTAL_PAGE VÀ START
+            // BƯỚC 4: TÍNH TOÁN TOTAL_PAGE VÀ STARTsss
             // tổng số trang
             $total_page = ceil($total_records / $limit);
             // Giới hạn current_page trong khoảng 1 đến total_page
